@@ -1,5 +1,5 @@
-import AssetView from "@/views/AssetView.vue";
-import type { RouteRecordRaw } from "vue-router";
+import AssetView from '@/views/AssetView.vue';
+import type { RouteRecordRaw } from 'vue-router';
 
 const routes: RouteRecordRaw[] = [
     {
