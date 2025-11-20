@@ -1,11 +1,13 @@
 <script setup lang="ts"></script>
 
 <template>
-  <h1>You did it!</h1>
-  <p>
-    Visit <a href="https://vuejs.org/" target="_blank" rel="noopener">vuejs.org</a> to read the
-    documentation
-  </p>
+    <div
+        id="app"
+        class="w-100">
+        <div class="vh-100 flex justify-center">
+            <router-view />
+        </div>
+    </div>
 </template>
 
 <style scoped></style>
