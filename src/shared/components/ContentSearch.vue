@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import { useHeaderStore } from '@/stores/header';
+import { usePreviewerStore } from '@/stores/asset';
 import IconSearch from '../icons/IconSearch.vue';
 import { storeToRefs } from 'pinia';
 
-const header = useHeaderStore();
-const { filter } = storeToRefs(header);
+const previewer = usePreviewerStore();
+const { filter } = storeToRefs(previewer);
 </script>
 
 <template>
