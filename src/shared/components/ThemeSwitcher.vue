@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import { ref, watchEffect } from 'vue';
+import IconLight from '../icons/IconLight.vue';
+import IconDark from '../icons/IconDark.vue';
 
 const isLightMode = ref(false);
 
@@ -22,18 +24,27 @@ if (localStorage.getItem('theme') === 'light') {
 </script>
 
 <template>
-    <button @click="toggleTheme">
-        {{ isLightMode ? 'Switch to Dark' : 'Switch to Light' }}
-    </button>
-
-    <div class="card">
-        <p>This is a card</p>
-        <p class="text-muted">Muted text</p>
+    <div
+        class="theme-switch pointer br-100 container-bg-light flex items-center justify-center shadow-m"
+        @click="toggleTheme()">
+        <IconDark v-if="isLightMode" />
+        <IconLight v-else />
     </div>
 </template>
 
 <style lang="scss">
 .card {
     background: var(--bg);
+}
+
+.theme-switch {
+    width: 52px;
+    height: 52px;
+    &:hover {
+        box-shadow: var(--shadow-l);
+    }
+    & > :first-child {
+        fill: var(--text);
+    }
 }
 </style>

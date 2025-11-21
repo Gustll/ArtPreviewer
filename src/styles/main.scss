@@ -1,0 +1,58 @@
+body {
+    background-color: var(--bg-dark);
+    color: var(--text);
+    transition:
+        background-color 0.3s,
+        color 0.3s;
+    font-family: "Poppins", sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    letter-spacing: -0.04em;
+}
+
+.container-bg-dark {
+    background-color: var(--bg-dark);
+}
+
+.container-bg {
+    background-color: var(--bg);
+}
+
+.container-bg-light {
+    background-color: var(--bg-light);
+}
+
+.text {
+    color: var(--text);
+}
+
+.text-muted {
+    color: var(--text-muted);
+}
+
+.shadow-s {
+    box-shadow: var(--shadow-s);
+}
+
+.shadow-m {
+    box-shadow: var(--shadow-m);
+}
+
+.shadow-l {
+    box-shadow: var(--shadow-l);
+}
+
+.b-gradient {
+    // background: var(--bg-light);
+    // border-radius: 9999px;
+    // position: relative;
+    // &:after {
+    //     content: "";
+    //     position: absolute;
+    //     height: 107%;
+    //     width: 104%;
+    //     border-radius: 9999px;
+    //     background-image: var(--gradient);
+    //     z-index: -1;
+    // }
+}
