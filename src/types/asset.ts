@@ -1,12 +1,18 @@
-export interface AssetResponse {
+export interface Asset {
+    id: number,
     name: string,
-    fileName: string,
     format: string,
+    gameTag: string,
+    thumbnailUrl: string,
+}
+
+export interface AssetResponse extends Asset {
+    fileName: string,
     size: string,
     datePosted: string,
     author: string,
-    gameTag: string,
     dimensions: string
+    imageUrl: string
 }
 
 export interface AssetFilters {

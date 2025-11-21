@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { usePreviewerStore } from '@/stores/asset';
+import { usePreviewerStore } from '@/stores/previewer';
 import IconSearch from '../icons/IconSearch.vue';
 import { storeToRefs } from 'pinia';
 

@@ -1,50 +1,42 @@
 // Just for the Demo to create the mock data - a poor man's BE endpoint
 
 import type { ApiResponse, ErrorResponse } from '@/types/api';
-import type { AssetResponse, AssetDownloadResponse } from '@/types/asset';
+import type { AssetResponse, AssetDownloadResponse, Asset } from '@/types/asset';
 
-const mockAssets: AssetResponse[] = [
+const mockAssets: Asset[] = [
     {
-        name: "Elden Ring Landscape",
-        fileName: "elden-ring-landscape.jpg",
-        format: "jpg",
-        size: "2.4 MB",
-        datePosted: "2025-11-18",
-        author: "FromSoftware",
-        gameTag: "Elden Ring",
-        dimensions: "1920x1080"
-    },
-    {
-        name: "Cyberpunk Night City",
-        fileName: "cyberpunk-night-city.png",
+        id: 1,
+        name: "Solider Walk",
         format: "png",
-        size: "3.1 MB",
-        datePosted: "2025-11-17",
-        author: "CD Projekt Red",
-        gameTag: "Cyberpunk 2077",
-        dimensions: "2560x1440"
+        gameTag: "PIXEL",
+        thumbnailUrl: 'src/api/assets/thumbnails/soldier-walk.png'
     },
     {
-        name: "Zelda Hyrule Field",
-        fileName: "zelda-hyrule-field.webp",
-        format: "webp",
-        size: "1.8 MB",
-        datePosted: "2025-11-16",
-        author: "Nintendo",
-        gameTag: "Zelda TOTK",
-        dimensions: "1920x1080"
+        id: 2,
+        name: "Samurai",
+        format: "png",
+        gameTag: "Samurai",
+        thumbnailUrl: 'src/api/assets/thumbnails/samurai.png'
     }
 ];
+
+const mockAsset: AssetResponse =
+{
+    ...mockAssets[0] as Asset,
+    fileName: '',
+    size: '',
+    datePosted: '',
+    author: '',
+    dimensions: '',
+    imageUrl: ''
+}
+
 
 const mockDownloadHistory: AssetDownloadResponse[] = [
     {
         ...mockAssets[0] as AssetResponse,
         downloadDate: "2025-11-20"
     },
-    {
-        ...mockAssets[1] as AssetResponse,
-        downloadDate: "2025-11-19"
-    }
 ];
 
 const SIMULATE_ERROR = false;
@@ -91,7 +83,7 @@ export const mockApi = {
      * GET /api/assets
      * Query params: search, format, gameTag
      */
-    async getAssets(params: URLSearchParams): Promise<AssetResponse[]> {
+    async getAssets(params: URLSearchParams): Promise<Asset[]> {
         // Simulate network delay - Just for the demo
         await new Promise(resolve => setTimeout(resolve, 500));
 
@@ -111,8 +103,7 @@ export const mockApi = {
         if (search) {
             const searchLower = search.toLowerCase();
             filtered = filtered.filter(asset =>
-                asset.name.toLowerCase().includes(searchLower) ||
-                asset.fileName.toLowerCase().includes(searchLower)
+                asset.name.toLowerCase().includes(searchLower)
             );
         }
 
@@ -141,7 +132,7 @@ export const mockApi = {
             throw simulateError();
         }
 
-        return mockAssets.find(asset => asset.fileName === fileName) || null;
+        return mockAsset;
     },
 
     /**

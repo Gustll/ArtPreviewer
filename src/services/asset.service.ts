@@ -1,4 +1,4 @@
-import type { AssetResponse, AssetDownloadResponse, AssetFilters } from '@/types/asset';
+import type { AssetResponse, AssetDownloadResponse, AssetFilters, Asset } from '@/types/asset';
 import { mockApi } from './mock.service';
 import type { ErrorResponse } from '@/types/api';
 
@@ -6,7 +6,7 @@ class AssetService {
     /**
      * List assets with filtering
      */
-    async listAssets(filters: AssetFilters): Promise<AssetResponse[]> {
+    async listAssets(filters: AssetFilters): Promise<Asset[]> {
         const params = new URLSearchParams();
 
         if (filters.search) params.append('search', filters.search);
