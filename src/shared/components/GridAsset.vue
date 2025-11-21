@@ -58,10 +58,6 @@ const props = withDefaults(defineProps<Props>(), {
     &.active {
         border: 2px solid var(--primary);
     }
-    .check-container {
-        right: 20px;
-        top: 20px;
-    }
     .img-container {
         width: 180px;
         height: 150px;

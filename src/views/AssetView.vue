@@ -29,7 +29,9 @@ function assetActive(id: number): boolean {
 </script>
 
 <template>
-    <div class="w-100 flex flew-wrap w-100 assets-container">
+    <div
+        class="w-100 flex w-100 assets-container"
+        :class="previewer.gridDisplay ? 'flex-wrap' : 'flex-column'">
         <div
             v-for="asset in previewer.assets"
             class="pointer"
@@ -38,7 +40,10 @@ function assetActive(id: number): boolean {
                 :asset="asset"
                 :active="assetActive(asset.id)"
                 v-if="previewer.gridDisplay" />
-            <ListAsset v-else />
+            <ListAsset
+                :asset="asset"
+                :active="assetActive(asset.id)"
+                v-else />
         </div>
     </div>
 </template>
