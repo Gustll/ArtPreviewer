@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import type { Asset } from '@/types/asset';
 import IconCheck from '../icons/IconCheck.vue';
+import { ref } from 'vue';
 
 interface Props {
     asset: Asset;
@@ -8,6 +9,7 @@ interface Props {
     active?: boolean;
 }
 
+const isHovered = ref(false);
 const props = withDefaults(defineProps<Props>(), {
     loading: false,
     active: false,
@@ -16,8 +18,10 @@ const props = withDefaults(defineProps<Props>(), {
 
 <template>
     <div
+        @mouseenter="isHovered = true"
+        @mouseleave="isHovered = false"
         class="asset-container container-bg-light shadow-m br4 flex flex-row h-auto w-100 justify-between"
-        :class="{ active: props.active }">
+        :class="{ active: props.active || isHovered }">
         <div class="flex flex-row asset-info">
             <div
                 class="img-container overflow-hidden flex items-center justify-center">
@@ -47,7 +51,7 @@ const props = withDefaults(defineProps<Props>(), {
                 <button class="action-btn">Download</button>
             </div>
             <div>
-                <IconCheck :active="props.active" />
+                <IconCheck :active="props.active || isHovered" />
             </div>
         </div>
     </div>
