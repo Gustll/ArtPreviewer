@@ -30,7 +30,7 @@ watch(() => previewer.filter.search, debouncedFetch);
             id="search"
             v-model="filter.search"
             type="text"
-            class="f7 w-100 h-100 pl2 text-muted bg-transparent bn"
+            class="f7 w-100 h-100 pl2 pr3 text-muted bg-transparent bn"
             autocomplete="off"
             placeholder="Search assets..." />
     </div>

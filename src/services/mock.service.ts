@@ -1,21 +1,23 @@
 // Just for the Demo to create the mock data - a poor man's BE endpoint
 
 import type { ApiResponse, ErrorResponse } from '@/types/api';
-import type { AssetResponse, AssetDownloadResponse, Asset } from '@/types/asset';
+import type { AssetResponse, AssetDownloadResponse, Asset, GameTagResponse } from '@/types/asset';
+
+const mockGameTags: GameTagResponse[] = [{ game: 'PIXEL', id: 1 }, { game: 'Samurai', id: 2 }, { game: 'Elden Ring', id: 3 }]
 
 const mockAssets: Asset[] = [
     {
         id: 1,
         name: "Solider Walk",
         format: "png",
-        gameTag: "PIXEL",
+        gameTag: mockGameTags[0] as GameTagResponse,
         thumbnailUrl: 'src/api/assets/thumbnails/soldier-walk.png'
     },
     {
         id: 2,
         name: "Samurai",
         format: "png",
-        gameTag: "Samurai",
+        gameTag: mockGameTags[1] as GameTagResponse,
         thumbnailUrl: 'src/api/assets/thumbnails/samurai.png'
     }
 ];
@@ -96,9 +98,10 @@ export const mockApi = {
         let filtered = [...mockAssets];
 
         // Backend filtering logic
+        console.log(params)
         const search = params.get('search');
         const format = params.get('format');
-        const gameTag = params.get('gameTag');
+        const gameTagIds = params.getAll('gameTag');
 
         if (search) {
             const searchLower = search.toLowerCase();
@@ -113,11 +116,16 @@ export const mockApi = {
             );
         }
 
-        if (gameTag) {
+        if (gameTagIds.length > 0) {
+            // Convert string IDs to numbers for comparison
+            const tagIdsAsNumbers = gameTagIds.map(id => Number(id));
+
+            // Filter assets where asset.gameTag.id matches any of the requested IDs
             filtered = filtered.filter(asset =>
-                asset.gameTag.toLowerCase() === gameTag.toLowerCase()
+                tagIdsAsNumbers.includes(asset.gameTag.id)
             );
         }
+
 
         return filtered;
     },
@@ -145,5 +153,14 @@ export const mockApi = {
             throw simulateError();
         }
         return mockDownloadHistory;
+    },
+
+    async getGameTags(): Promise<GameTagResponse[]> {
+        await new Promise(resolve => setTimeout(resolve, 300));
+
+        if (SIMULATE_ERROR) {
+            throw simulateError();
+        }
+        return mockGameTags;
     }
 };

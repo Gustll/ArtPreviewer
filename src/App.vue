@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import AppHeader from './shared/components/AppHeader.vue';
 import AppNotification from './shared/components/AppNotification.vue';
-import AppSidebar from './shared/components/AppSidebar.vue';
+import AppSidebar from './shared/components/AssetFilter.vue';
 </script>
 
 <template>

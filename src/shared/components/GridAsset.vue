@@ -32,7 +32,7 @@ const props = withDefaults(defineProps<Props>(), {
                     loading="lazy" />
             </div>
             <div class="flex justify-end">
-                <IconCheck :active="active || isHovered" />
+                <IconCheck :active="active" />
             </div>
         </div>
 

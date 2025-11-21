@@ -1,6 +1,5 @@
-import type { AssetResponse, AssetDownloadResponse, AssetFilters, Asset } from '@/types/asset';
+import type { AssetResponse, AssetDownloadResponse, AssetFilters, Asset, GameTagResponse } from '@/types/asset';
 import { mockApi } from './mock.service';
-import type { ErrorResponse } from '@/types/api';
 
 class AssetService {
     /**
@@ -11,7 +10,9 @@ class AssetService {
 
         if (filters.search) params.append('search', filters.search);
         if (filters.format) params.append('format', filters.format);
-        if (filters.gameTag) params.append('gameTag', filters.gameTag);
+        Object.keys(filters.gameTags).forEach(id => {
+            params.append('gameTag', id);
+        });
 
         // Mock API call (simulates: GET /api/assets?search=xxx&format=jpg)
         return mockApi.getAssets(params);
@@ -29,6 +30,13 @@ class AssetService {
      */
     async getDownloadHistory(): Promise<AssetDownloadResponse[]> {
         return mockApi.getDownloadHistory();
+    }
+
+    /**
+     * Get all gameTags
+     */
+    async getGameTags(): Promise<GameTagResponse[] | null> {
+        return mockApi.getGameTags();
     }
 }
 

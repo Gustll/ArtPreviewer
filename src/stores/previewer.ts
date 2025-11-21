@@ -1,7 +1,7 @@
 import { ref, reactive, computed } from 'vue';
 import { defineStore } from 'pinia';
 import { assetService } from '@/services/asset.service';
-import type { Asset, } from '@/types/asset';
+import type { Asset, AssetFilters, } from '@/types/asset';
 import { isErrorResponse } from '@/types/api';
 import { useUIStore } from './ui';
 import { NotificationType } from '@/types/ui';
@@ -9,9 +9,9 @@ import type { DisplayMode } from '@/types/common';
 
 export const usePreviewerStore = defineStore('previewer', () => {
     const ui = useUIStore();
-    const filter = reactive({
+    const filter = reactive<AssetFilters>({
         search: '',
-        gameTag: '',
+        gameTags: {},
         format: ''
     })
 

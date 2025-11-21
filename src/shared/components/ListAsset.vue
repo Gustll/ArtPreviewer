@@ -51,7 +51,7 @@ const props = withDefaults(defineProps<Props>(), {
                 <button class="action-btn">Download</button>
             </div>
             <div>
-                <IconCheck :active="props.active || isHovered" />
+                <IconCheck :active="props.active" />
             </div>
         </div>
     </div>

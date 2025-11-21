@@ -30,25 +30,28 @@ function assetActive(id: number): boolean {
 </script>
 
 <template>
-    <div class="h-100 flex w-100">
-        <IconLoader v-if="previewer.loading.assets" />
+    <IconLoader v-if="previewer.loading.assets" />
+    <div
+        v-else-if="previewer.assets.length === 0"
+        class="flex w-100 h-100 items-center justify-center fw8 f3">
+        <span class="">No assets with the given filter</span>
+    </div>
+    <div
+        v-else
+        class="w-100 h-100 flex assets-container"
+        :class="previewer.gridDisplay ? 'flex-wrap' : 'flex-column'">
         <div
-            v-else
-            class="w-100 h-100 flex assets-container"
-            :class="previewer.gridDisplay ? 'flex-wrap' : 'flex-column'">
-            <div
-                v-for="asset in previewer.assets"
-                class="pointer"
-                @click="toggleAsset(asset.id)">
-                <GridAsset
-                    :asset="asset"
-                    :active="assetActive(asset.id)"
-                    v-if="previewer.gridDisplay" />
-                <ListAsset
-                    :asset="asset"
-                    :active="assetActive(asset.id)"
-                    v-else />
-            </div>
+            v-for="asset in previewer.assets"
+            class="pointer"
+            @click="toggleAsset(asset.id)">
+            <GridAsset
+                :asset="asset"
+                :active="assetActive(asset.id)"
+                v-if="previewer.gridDisplay" />
+            <ListAsset
+                :asset="asset"
+                :active="assetActive(asset.id)"
+                v-else />
         </div>
     </div>
 </template>
