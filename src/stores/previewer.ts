@@ -1,11 +1,11 @@
-import { ref, reactive } from 'vue';
+import { ref, reactive, computed } from 'vue';
 import { defineStore } from 'pinia';
 import { assetService } from '@/services/asset.service';
 import type { Asset, } from '@/types/asset';
 import { isErrorResponse } from '@/types/api';
 import { useUIStore } from './ui';
 import { NotificationType } from '@/types/ui';
-import { DisplayMode } from '@/types/common';
+import type { DisplayMode } from '@/types/common';
 
 export const usePreviewerStore = defineStore('previewer', () => {
     const ui = useUIStore();
@@ -15,7 +15,7 @@ export const usePreviewerStore = defineStore('previewer', () => {
         format: ''
     })
 
-    const displayMode = ref<DisplayMode>(DisplayMode.Grid)
+    const displayMode = ref<DisplayMode>('grid')
 
     const assets = ref<Asset[]>([]);
     const history = ref<Asset[]>([]);
@@ -49,5 +49,7 @@ export const usePreviewerStore = defineStore('previewer', () => {
         }
     }
 
-    return { filter, assets, fetchAssets };
+    const gridDisplay = computed(() => displayMode.value === 'grid');
+
+    return { filter, assets, displayMode, gridDisplay, fetchAssets };
 });

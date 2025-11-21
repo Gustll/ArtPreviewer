@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import GridAsset from '@/shared/components/GridAsset.vue';
+import ListAsset from '@/shared/components/ListAsset.vue';
 import { usePreviewerStore } from '@/stores/previewer';
 import { computed, onMounted, ref } from 'vue';
 
@@ -35,7 +36,9 @@ function assetActive(id: number): boolean {
             @click="toggleAsset(asset.id)">
             <GridAsset
                 :asset="asset"
-                :active="assetActive(asset.id)" />
+                :active="assetActive(asset.id)"
+                v-if="previewer.gridDisplay" />
+            <ListAsset v-else />
         </div>
     </div>
 </template>

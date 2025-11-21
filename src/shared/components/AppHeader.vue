@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import ModeSwitcher from './ModeSwitcher.vue';
 import ThemeSwitcher from './ThemeSwitcher.vue';
 
 const navItems = [
@@ -23,7 +24,10 @@ const navItems = [
         </div>
 
         <div class="w-40 flex justify-end">
-            <ThemeSwitcher />
+            <div class="flex flex-row actions">
+                <ModeSwitcher />
+                <ThemeSwitcher />
+            </div>
         </div>
     </div>
 </template>
@@ -42,6 +46,9 @@ const navItems = [
             box-shadow: none;
             border: 2px solid var(--primary);
         }
+    }
+    .actions {
+        gap: 10px;
     }
 }
 </style>
