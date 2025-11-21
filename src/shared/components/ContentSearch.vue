@@ -2,9 +2,24 @@
 import { usePreviewerStore } from '@/stores/previewer';
 import IconSearch from '../icons/IconSearch.vue';
 import { storeToRefs } from 'pinia';
+import { watch } from 'vue';
 
 const previewer = usePreviewerStore();
 const { filter } = storeToRefs(previewer);
+
+const debounce = (fn: () => void, delay: number) => {
+    let timeout: ReturnType<typeof setTimeout>;
+    return () => {
+        clearTimeout(timeout);
+        timeout = setTimeout(fn, delay);
+    };
+};
+
+const debouncedFetch = debounce(() => {
+    previewer.fetchAssets();
+}, 800);
+
+watch(() => previewer.filter.search, debouncedFetch);
 </script>
 
 <template>

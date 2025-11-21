@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import GridAsset from '@/shared/components/GridAsset.vue';
 import ListAsset from '@/shared/components/ListAsset.vue';
+import IconLoader from '@/shared/icons/IconLoader.vue';
 import { usePreviewerStore } from '@/stores/previewer';
 import { computed, onMounted, ref } from 'vue';
 
@@ -29,21 +30,25 @@ function assetActive(id: number): boolean {
 </script>
 
 <template>
-    <div
-        class="w-100 flex w-100 assets-container"
-        :class="previewer.gridDisplay ? 'flex-wrap' : 'flex-column'">
+    <div class="h-100 flex w-100">
+        <IconLoader v-if="previewer.loading.assets" />
         <div
-            v-for="asset in previewer.assets"
-            class="pointer"
-            @click="toggleAsset(asset.id)">
-            <GridAsset
-                :asset="asset"
-                :active="assetActive(asset.id)"
-                v-if="previewer.gridDisplay" />
-            <ListAsset
-                :asset="asset"
-                :active="assetActive(asset.id)"
-                v-else />
+            v-else
+            class="w-100 h-100 flex assets-container"
+            :class="previewer.gridDisplay ? 'flex-wrap' : 'flex-column'">
+            <div
+                v-for="asset in previewer.assets"
+                class="pointer"
+                @click="toggleAsset(asset.id)">
+                <GridAsset
+                    :asset="asset"
+                    :active="assetActive(asset.id)"
+                    v-if="previewer.gridDisplay" />
+                <ListAsset
+                    :asset="asset"
+                    :active="assetActive(asset.id)"
+                    v-else />
+            </div>
         </div>
     </div>
 </template>

@@ -51,5 +51,5 @@ export const usePreviewerStore = defineStore('previewer', () => {
 
     const gridDisplay = computed(() => displayMode.value === 'grid');
 
-    return { filter, assets, displayMode, gridDisplay, fetchAssets };
+    return { filter, assets, displayMode, gridDisplay, loading, fetchAssets };
 });
