@@ -42,7 +42,6 @@ function assetActive(id: number): boolean {
         :class="previewer.gridDisplay ? 'flex-wrap' : 'flex-column'">
         <div
             v-for="asset in previewer.assets"
-            class="pointer"
             @click="toggleAsset(asset.id)">
             <GridAsset
                 :asset="asset"

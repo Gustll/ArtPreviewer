@@ -18,11 +18,12 @@ const props = withDefaults(defineProps<Props>(), {
 
 <template>
     <div
-        @mouseenter="isHovered = true"
-        @mouseleave="isHovered = false"
         class="asset-container container-bg-light shadow-m br4 flex flex-column h-auto"
         :class="{ active: props.active || isHovered }">
-        <div class="flex flex-row justify-between">
+        <div
+            class="flex flex-row justify-between pointer"
+            @mouseenter="isHovered = true"
+            @mouseleave="isHovered = false">
             <div
                 class="img-container overflow-hidden flex items-center justify-center">
                 <img
@@ -42,7 +43,7 @@ const props = withDefaults(defineProps<Props>(), {
         </div>
         <div>
             <div class="container-tag dib">
-                {{ asset.gameTag }}
+                {{ asset.gameTag.game }}
             </div>
         </div>
         <div class="action-container flex flex-row">
