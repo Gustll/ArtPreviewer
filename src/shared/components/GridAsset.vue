@@ -2,12 +2,15 @@
 import type { Asset } from '@/types/asset';
 import IconCheck from '../icons/IconCheck.vue';
 import { ref } from 'vue';
+import { usePreviewerStore } from '@/stores/previewer';
 
 interface Props {
     asset: Asset;
     loading?: boolean;
     active?: boolean;
 }
+
+const previewer = usePreviewerStore();
 
 const isHovered = ref(false);
 const props = withDefaults(defineProps<Props>(), {
@@ -38,7 +41,7 @@ const props = withDefaults(defineProps<Props>(), {
         </div>
 
         <div class="truncate flex flex-column">
-            <span class="ttu text-muted">{{ asset.format }}</span>
+            <span class="ttu text-muted">{{ asset.format.type }}</span>
             <span class="asset-name f4 fw8">{{ asset.name }}</span>
         </div>
         <div>
@@ -48,7 +51,11 @@ const props = withDefaults(defineProps<Props>(), {
         </div>
         <div class="action-container flex flex-row">
             <button class="w-50 action-secondary-btn">more</button>
-            <button class="w-50 action-btn">Download</button>
+            <button
+                class="w-50 action-btn"
+                @click="previewer.downloadAssets([asset.id])">
+                Download
+            </button>
         </div>
     </div>
 </template>

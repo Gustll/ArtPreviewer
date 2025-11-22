@@ -10,6 +10,11 @@ export const useUIStore = defineStore('ui', () => {
 
     function addNotification(notification: UINotification): void {
         notifications.push(notification);
+
+        // Auto-remove after 4 seconds
+        setTimeout(() => {
+            removeNotification();
+        }, 4000);
     }
 
     function removeNotification(): void {

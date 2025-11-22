@@ -1,5 +1,6 @@
-import type { AssetResponse, AssetDownloadResponse, AssetFilters, Asset, GameTagResponse, FormatResponse } from '@/types/asset';
+import type { AssetResponse, AssetDownloadResponse, AssetFilters, Asset, GameTagResponse, FormatResponse, DownloadRequest } from '@/types/asset';
 import { mockApi } from './mock.service';
+import { authService } from './auth.service';
 
 class AssetService {
     /**
@@ -30,8 +31,20 @@ class AssetService {
     /**
      * Get download history
      */
-    async getDownloadHistory(): Promise<AssetDownloadResponse[]> {
-        return mockApi.getDownloadHistory();
+    async listHistory(filters: AssetFilters): Promise<Asset[]> {
+        const params = new URLSearchParams();
+        const userId = authService.getCurrentUserId();
+
+        if (filters.search) params.append('search', filters.search);
+        Object.keys(filters.format).forEach(id => {
+            params.append('format', id);
+        });
+        Object.keys(filters.gameTags).forEach(id => {
+            params.append('gameTag', id);
+        });
+        params.append('userId', userId);
+
+        return mockApi.getDownloadHistory(params);
     }
 
     /**
@@ -46,6 +59,22 @@ class AssetService {
      */
     async getAssetFormats(): Promise<FormatResponse[] | null> {
         return mockApi.getAssetFormats();
+    }
+
+    /**
+     * Downloads all the assets
+     */
+    async downloadAssets(assetIds: number[]): Promise<void> {
+        const userId = authService.getCurrentUserId();
+
+        // Prepare request payload
+        const downloadRequests: DownloadRequest[] = assetIds.map(assetId => ({
+            assetId,
+            userId
+        }));
+
+        // Call backend
+        await mockApi.saveDownloads(downloadRequests);
     }
 }
 

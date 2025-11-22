@@ -1,18 +1,16 @@
 <script setup lang="ts">
 import { useUIStore } from '@/stores/ui';
-import { storeToRefs } from 'pinia';
 
 const ui = useUIStore();
-const { hasNotifications, notifications } = storeToRefs(ui);
 </script>
 <template>
     <div
         class="absolute notification-container"
-        v-if="hasNotifications">
+        v-if="ui.hasNotifications">
         <div
-            :class="notifications[0]?.type"
+            :class="ui.notifications[0]?.type"
             class="pv2 ph3 br-pill">
-            <span>{{ notifications[0]?.message }}</span>
+            <span>{{ ui.notifications[0]?.message }}</span>
         </div>
     </div>
 </template>
@@ -30,7 +28,7 @@ const { hasNotifications, notifications } = storeToRefs(ui);
         border: 2px solid var(--primary);
         box-shadow: var(--shadow-m);
         background-color: var(--bg-light);
-        color: var(--bg);
+        color: var(--text);
     }
 }
 </style>

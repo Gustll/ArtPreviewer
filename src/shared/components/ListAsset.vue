@@ -34,7 +34,7 @@ const props = withDefaults(defineProps<Props>(), {
 
             <div class="flex justify-center flex-column">
                 <div class="truncate flex flex-column">
-                    <span class="ttu text-muted">{{ asset.format }}</span>
+                    <span class="ttu text-muted">{{ asset.format.type }}</span>
                     <span class="asset-name f4 fw8">{{ asset.name }}</span>
                 </div>
                 <div class="pt1">

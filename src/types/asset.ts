@@ -34,3 +34,8 @@ export interface FormatResponse {
     type: string,
     id: number
 }
+
+export interface DownloadRequest {
+    assetId: number,
+    userId: string
+}
