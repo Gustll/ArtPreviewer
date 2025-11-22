@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { assetService } from '@/services/asset.service';
 import GridAsset from '@/shared/components/GridAsset.vue';
 import ListAsset from '@/shared/components/ListAsset.vue';
 import IconLoader from '@/shared/icons/IconLoader.vue';
@@ -29,17 +28,10 @@ function assetActive(id: number): boolean {
     return activeAssets.value.includes(id);
 }
 
-async function downloadAsset(id: number) {
-    const shouldDownload = await assetService.triggerDownloadPrompt(
-        previewer.assets,
-        id,
-    );
-
-    if (shouldDownload) {
-        // User saved the file, now record the download
-        await previewer.downloadAssets([id]);
-        activeAssets.value = [];
-    }
+async function downloadAsset(ids: number[]) {
+    // User saved the file, now record the download
+    await previewer.downloadAssets(ids);
+    activeAssets.value = [];
 }
 </script>
 
@@ -58,12 +50,12 @@ async function downloadAsset(id: number) {
             v-for="asset in previewer.assets"
             @click="toggleAsset(asset.id)">
             <GridAsset
-                @download-asset="downloadAsset(asset.id)"
+                @download-asset="downloadAsset([asset.id])"
                 :asset="asset"
                 :active="assetActive(asset.id)"
                 v-if="previewer.gridDisplay" />
             <ListAsset
-                @download-asset="downloadAsset(asset.id)"
+                @download-asset="downloadAsset([asset.id])"
                 :asset="asset"
                 :active="assetActive(asset.id)"
                 v-else />

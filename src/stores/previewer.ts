@@ -71,7 +71,7 @@ export const usePreviewerStore = defineStore('previewer', () => {
         if (assetIds.length === 0) return;
 
         try {
-            await assetService.downloadAssets(assetIds);
+            await assetService.downloadAssets(assets.value, assetIds);
             console.log(`Downloaded ${assetIds.length} assets`);
         } catch (e) {
             // if (isErrorResponse(e)) {

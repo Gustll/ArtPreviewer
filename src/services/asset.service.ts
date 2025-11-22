@@ -1,6 +1,7 @@
 import type { AssetResponse, AssetFilters, Asset, GameTagResponse, FormatResponse, DownloadRequest, HistoryAsset } from '@/types/asset';
 import { mockApi } from './mock.service';
 import { authService } from './auth.service';
+import JSZip from 'jszip';
 
 class AssetService {
     /**
@@ -64,46 +65,61 @@ class AssetService {
     /**
      * Downloads all the assets
      */
-    async downloadAssets(assetIds: number[]): Promise<void> {
+    async downloadAssets(assets: Asset[], assetIds: number[]): Promise<void> {
         const userId = authService.getCurrentUserId();
 
-        // Prepare request payload
-        const downloadRequests: DownloadRequest[] = assetIds.map(assetId => ({
-            assetId,
-            userId
-        }));
+        // Save download records
+        const downloadRequests = assetIds.map(assetId => ({ assetId, userId }));
 
-        // Call backend
+        if (assetIds.length === 1) {
+            // Single file - direct download
+            const assetId = assetIds[0]
+            const asset = assets.filter(({ id }) => id === assetId)[0] as Asset;
+
+            this.triggerFileDownload(asset.thumbnailUrl, asset.name);
+        } else {
+            // Multiple files - create ZIP
+            await this.downloadAsZip(assets, assetIds);
+        }
         await mockApi.saveDownloads(downloadRequests);
     }
 
-    async triggerDownloadPrompt(assets: Asset[], id: number): Promise<boolean> {
-        try {
-            // Get the asset data
-            const asset = assets.find(a => a.id === id);
-            if (!asset) return false;
-
-            // Create download link
-            const link = document.createElement('a');
-            link.href = asset.thumbnailUrl;
-            link.download = asset.name;
-            link.target = '_blank';
-
-            // Trigger download - this opens browser's save dialog
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-
-
-            await new Promise(resolve => setTimeout(resolve, 1000));
-
-            // Assume user saved (we can't detect if they cancelled the native dialog)
-            return true;
-        } catch (error) {
-            console.error('Download failed:', error);
-            return false;
-        }
+    private triggerFileDownload(url: string, filename: string): void {
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = filename;
+        link.click();
     }
+
+    private async downloadAsZip(assets: Asset[], assetIds: number[]): Promise<void> {
+        const zip = new JSZip();
+        // Fetch all images and add to ZIP with correct format
+        for (const asset of assets) {
+            try {
+                const response = await fetch(asset.thumbnailUrl);
+                const blob = await response.blob();
+
+                // Ensure filename has correct extension
+                const fileName = `${asset.name}.${asset.format.type}`;
+
+                zip.file(fileName, blob);
+            } catch (error) {
+                console.error(`Failed to fetch ${asset.name}:`, error);
+            }
+        }
+
+        // Generate ZIP file
+        const zipBlob = await zip.generateAsync({ type: 'blob' });
+
+        // Trigger download
+        const url = URL.createObjectURL(zipBlob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = `assets-${Date.now()}.zip`;
+        link.click();
+        URL.revokeObjectURL(url);
+    }
+
 }
 
 export const assetService = new AssetService();
