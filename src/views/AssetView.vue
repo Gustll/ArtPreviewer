@@ -3,7 +3,7 @@ import GridAsset from '@/shared/components/GridAsset.vue';
 import ListAsset from '@/shared/components/ListAsset.vue';
 import IconLoader from '@/shared/icons/IconLoader.vue';
 import { usePreviewerStore } from '@/stores/previewer';
-import { computed, onMounted, ref } from 'vue';
+import { onMounted, ref } from 'vue';
 
 const previewer = usePreviewerStore();
 
@@ -27,6 +27,14 @@ function toggleAsset(id: number) {
 function assetActive(id: number): boolean {
     return activeAssets.value.includes(id);
 }
+
+function downloadAsset(id: number) {
+    previewer.downloadAssets([id]);
+    const index = activeAssets.value.indexOf(id);
+    if (index > -1) {
+        activeAssets.value.splice(index, 1);
+    }
+}
 </script>
 
 <template>
@@ -44,10 +52,12 @@ function assetActive(id: number): boolean {
             v-for="asset in previewer.assets"
             @click="toggleAsset(asset.id)">
             <GridAsset
+                @download-asset="downloadAsset(asset.id)"
                 :asset="asset"
                 :active="assetActive(asset.id)"
                 v-if="previewer.gridDisplay" />
             <ListAsset
+                @download-asset="downloadAsset(asset.id)"
                 :asset="asset"
                 :active="assetActive(asset.id)"
                 v-else />

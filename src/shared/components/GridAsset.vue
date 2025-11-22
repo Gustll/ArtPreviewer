@@ -2,7 +2,8 @@
 import type { Asset } from '@/types/asset';
 import IconCheck from '../icons/IconCheck.vue';
 import { ref } from 'vue';
-import { usePreviewerStore } from '@/stores/previewer';
+
+const emit = defineEmits(['downloadAsset']);
 
 interface Props {
     asset: Asset;
@@ -10,13 +11,15 @@ interface Props {
     active?: boolean;
 }
 
-const previewer = usePreviewerStore();
-
 const isHovered = ref(false);
 const props = withDefaults(defineProps<Props>(), {
     loading: false,
     active: false,
 });
+
+function downloadAsset() {
+    emit('downloadAsset');
+}
 </script>
 
 <template>
@@ -53,7 +56,7 @@ const props = withDefaults(defineProps<Props>(), {
             <button class="w-50 action-secondary-btn">more</button>
             <button
                 class="w-50 action-btn"
-                @click="previewer.downloadAssets([asset.id])">
+                @click="downloadAsset()">
                 Download
             </button>
         </div>

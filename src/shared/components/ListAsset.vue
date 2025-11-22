@@ -3,6 +3,8 @@ import type { Asset } from '@/types/asset';
 import IconCheck from '../icons/IconCheck.vue';
 import { ref } from 'vue';
 
+const emit = defineEmits(['downloadAsset']);
+
 interface Props {
     asset: Asset;
     loading?: boolean;
@@ -14,6 +16,10 @@ const props = withDefaults(defineProps<Props>(), {
     loading: false,
     active: false,
 });
+
+function downloadAsset() {
+    emit('downloadAsset');
+}
 </script>
 
 <template>
@@ -48,7 +54,11 @@ const props = withDefaults(defineProps<Props>(), {
         <div class="flex flex-row asset-actions">
             <div class="action-container flex flex-column h-100 justify-center">
                 <button class="action-secondary-btn">more</button>
-                <button class="action-btn">Download</button>
+                <button
+                    class="action-btn"
+                    @click="downloadAsset()">
+                    Download
+                </button>
             </div>
             <div>
                 <IconCheck :active="props.active" />

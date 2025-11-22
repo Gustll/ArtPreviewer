@@ -1,8 +1,7 @@
 // Just for the Demo to create the mock data - a poor man's BE endpoint
 
 import type { ApiResponse, ErrorResponse } from '@/types/api';
-import type { AssetResponse, AssetDownloadResponse, Asset, GameTagResponse, FormatResponse, DownloadRequest } from '@/types/asset';
-import { authService } from './auth.service';
+import type { AssetResponse, Asset, GameTagResponse, FormatResponse, DownloadRequest } from '@/types/asset';
 
 const mockGameTags: GameTagResponse[] = [{ game: 'PIXEL', id: 1 }, { game: 'Samurai', id: 2 }, { game: 'Elden Ring', id: 3 }]
 const mockAssetFormats: FormatResponse[] = [{ type: 'png', id: 1 }, { type: 'svg', id: 2 }, { type: 'jpg', id: 3 }]
