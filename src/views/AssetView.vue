@@ -38,16 +38,16 @@ function downloadAsset(id: number) {
 </script>
 
 <template>
-    <IconLoader v-if="previewer.loading.assets" />
     <div
-        v-else-if="previewer.assets.length === 0"
+        v-if="previewer.assets.length === 0 && !previewer.loading.assets"
         class="flex w-100 h-100 items-center justify-center fw8 f3">
         <span class="">No assets with the given filter</span>
     </div>
     <div
         v-else
-        class="w-100 h-100 flex assets-container"
+        class="w-100 h-100 flex assets-container relative"
         :class="previewer.gridDisplay ? 'flex-wrap' : 'flex-column'">
+        <IconLoader v-if="previewer.loading.assets" />
         <div
             v-for="asset in previewer.assets"
             @click="toggleAsset(asset.id)">

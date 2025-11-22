@@ -39,16 +39,18 @@ function downloadAsset(id: number) {
 </script>
 
 <template>
-    <IconLoader v-if="previewer.loading.history" />
     <div
-        v-else-if="previewer.history.length === 0"
+        v-if="previewer.history.length === 0 && !previewer.loading.history"
         class="flex w-100 h-100 items-center justify-center fw8 f3">
         <span class="">No history with the given filter</span>
     </div>
     <div
         v-else
-        class="w-100 h-100 flex assets-container"
+        class="w-100 h-100 flex assets-container relative"
         :class="previewer.gridDisplay ? 'flex-wrap' : 'flex-column'">
+        <IconLoader
+            v-if="previewer.loading.history"
+            class="absolute" />
         <div
             v-for="asset in previewer.history"
             @click="toggleAsset(asset.id)">
