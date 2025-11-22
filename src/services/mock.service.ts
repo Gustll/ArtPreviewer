@@ -1,22 +1,23 @@
 // Just for the Demo to create the mock data - a poor man's BE endpoint
 
 import type { ApiResponse, ErrorResponse } from '@/types/api';
-import type { AssetResponse, AssetDownloadResponse, Asset, GameTagResponse } from '@/types/asset';
+import type { AssetResponse, AssetDownloadResponse, Asset, GameTagResponse, FormatResponse } from '@/types/asset';
 
 const mockGameTags: GameTagResponse[] = [{ game: 'PIXEL', id: 1 }, { game: 'Samurai', id: 2 }, { game: 'Elden Ring', id: 3 }]
+const mockAssetFormats: FormatResponse[] = [{ type: 'png', id: 1 }, { type: 'svg', id: 2 }, { type: 'jpg', id: 3 }]
 
 const mockAssets: Asset[] = [
     {
         id: 1,
         name: "Solider Walk",
-        format: "png",
+        format: mockAssetFormats[0] as FormatResponse,
         gameTag: mockGameTags[0] as GameTagResponse,
         thumbnailUrl: 'src/api/assets/thumbnails/soldier-walk.png'
     },
     {
         id: 2,
         name: "Samurai",
-        format: "png",
+        format: mockAssetFormats[0] as FormatResponse,
         gameTag: mockGameTags[1] as GameTagResponse,
         thumbnailUrl: 'src/api/assets/thumbnails/samurai.png'
     }
@@ -100,7 +101,7 @@ export const mockApi = {
         // Backend filtering logic
         console.log(params)
         const search = params.get('search');
-        const format = params.get('format');
+        const formatIds = params.getAll('format');
         const gameTagIds = params.getAll('gameTag');
 
         if (search) {
@@ -110,9 +111,13 @@ export const mockApi = {
             );
         }
 
-        if (format) {
+        if (formatIds.length > 0) {
+            // Convert string IDs to numbers for comparison
+            const formatIdsAsNumbers = formatIds.map(id => Number(id));
+
+            // Filter assets where asset.gameTag.id matches any of the requested IDs
             filtered = filtered.filter(asset =>
-                asset.format.toLowerCase() === format.toLowerCase()
+                formatIdsAsNumbers.includes(asset.format.id)
             );
         }
 
@@ -162,5 +167,14 @@ export const mockApi = {
             throw simulateError();
         }
         return mockGameTags;
+    },
+
+    async getAssetFormats(): Promise<FormatResponse[]> {
+        await new Promise(resolve => setTimeout(resolve, 300));
+
+        if (SIMULATE_ERROR) {
+            throw simulateError();
+        }
+        return mockAssetFormats;
     }
 };

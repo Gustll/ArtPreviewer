@@ -1,7 +1,7 @@
 export interface Asset {
     id: number,
     name: string,
-    format: AssetFormat,
+    format: FormatResponse,
     gameTag: GameTagResponse,
     thumbnailUrl: string,
 }
@@ -17,7 +17,7 @@ export interface AssetResponse extends Asset {
 
 export interface AssetFilters {
     search: string;
-    format: string;
+    format: Record<number, string>;
     gameTags: Record<number, string>,
 }
 
@@ -25,9 +25,12 @@ export interface AssetDownloadResponse extends AssetResponse {
     downloadDate: string;   // ISO string or "Nov 18, 2025"
 }
 
-export type AssetFormat = 'png' | 'svg'
-
 export interface GameTagResponse {
     game: string,
+    id: number
+}
+
+export interface FormatResponse {
+    type: string,
     id: number
 }

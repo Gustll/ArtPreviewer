@@ -12,7 +12,7 @@ export const usePreviewerStore = defineStore('previewer', () => {
     const filter = reactive<AssetFilters>({
         search: '',
         gameTags: {},
-        format: ''
+        format: {}
     })
 
     const displayMode = ref<DisplayMode>('grid')

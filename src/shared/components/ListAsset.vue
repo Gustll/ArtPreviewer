@@ -18,12 +18,11 @@ const props = withDefaults(defineProps<Props>(), {
 
 <template>
     <div
-        class="asset-container container-bg-light shadow-m br4 flex flex-row h-auto w-100 justify-between"
+        @mouseenter="isHovered = true"
+        @mouseleave="isHovered = false"
+        class="asset-container container-bg-light shadow-m br4 flex flex-row h-auto w-100 justify-between pointer"
         :class="{ active: props.active || isHovered }">
-        <div
-            class="flex flex-row asset-info pointer"
-            @mouseenter="isHovered = true"
-            @mouseleave="isHovered = false">
+        <div class="flex flex-row asset-info">
             <div
                 class="img-container overflow-hidden flex items-center justify-center">
                 <img

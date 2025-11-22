@@ -32,7 +32,7 @@ function tagActive(id: number): boolean {
 </script>
 
 <template>
-    <div class="w-100 h-100 flex flex-column">
+    <div class="w-100 flex flex-column">
         <span class="text fw8 f3 pb3">Game</span>
         <div
             class="flex flex-wrap container-bg-light shadow-m br4 game-tag-container pa2">
