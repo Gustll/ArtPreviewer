@@ -10,7 +10,7 @@ import AppSidebar from './shared/components/AssetFilter.vue';
         class="w-100 relative">
         <div class="vh-100 flex flex-column pa3">
             <AppHeader />
-            <div class="flex flex-row w-100 h-100 content">
+            <div class="flex flex-row w-100 h-100 content overflow-y-hidden">
                 <div class="w-30">
                     <AppSidebar />
                 </div>
@@ -23,13 +23,16 @@ import AppSidebar from './shared/components/AssetFilter.vue';
     </div>
 </template>
 
-<style scoped>
+<style scoped lang="scss">
+$gap: 30px;
+
 #app {
+    overflow-y: hidden;
     & > :first-child {
-        gap: 30px;
+        gap: $gap;
     }
     .content {
-        gap: 30px;
+        gap: $gap;
     }
 }
 </style>

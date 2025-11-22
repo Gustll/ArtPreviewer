@@ -46,7 +46,7 @@ function downloadAsset(id: number) {
     </div>
     <div
         v-else
-        class="w-100 h-100 flex assets-container relative"
+        class="w-100 h-100 flex assets-container relative overflow-y-auto br4"
         :class="previewer.gridDisplay ? 'flex-wrap' : 'flex-column'">
         <IconLoader
             v-if="previewer.loading.history"
@@ -71,5 +71,6 @@ function downloadAsset(id: number) {
 <style>
 .assets-container {
     gap: 10px;
+    min-height: 0;
 }
 </style>

@@ -1,4 +1,4 @@
-import type { AssetResponse, AssetDownloadResponse, AssetFilters, Asset, GameTagResponse, FormatResponse, DownloadRequest } from '@/types/asset';
+import type { AssetResponse, AssetDownloadResponse, AssetFilters, Asset, GameTagResponse, FormatResponse, DownloadRequest, HistoryAsset } from '@/types/asset';
 import { mockApi } from './mock.service';
 import { authService } from './auth.service';
 
@@ -31,7 +31,7 @@ class AssetService {
     /**
      * Get download history
      */
-    async listHistory(filters: AssetFilters): Promise<Asset[]> {
+    async listHistory(filters: AssetFilters): Promise<HistoryAsset[]> {
         const params = new URLSearchParams();
         const userId = authService.getCurrentUserId();
 
