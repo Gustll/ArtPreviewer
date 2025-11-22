@@ -1,4 +1,4 @@
-import type { AssetResponse, AssetDownloadResponse, AssetFilters, Asset, GameTagResponse, FormatResponse, DownloadRequest, HistoryAsset } from '@/types/asset';
+import type { AssetResponse, AssetFilters, Asset, GameTagResponse, FormatResponse, DownloadRequest, HistoryAsset } from '@/types/asset';
 import { mockApi } from './mock.service';
 import { authService } from './auth.service';
 
@@ -75,6 +75,34 @@ class AssetService {
 
         // Call backend
         await mockApi.saveDownloads(downloadRequests);
+    }
+
+    async triggerDownloadPrompt(assets: Asset[], id: number): Promise<boolean> {
+        try {
+            // Get the asset data
+            const asset = assets.find(a => a.id === id);
+            if (!asset) return false;
+
+            // Create download link
+            const link = document.createElement('a');
+            link.href = asset.thumbnailUrl;
+            link.download = asset.name;
+            link.target = '_blank';
+
+            // Trigger download - this opens browser's save dialog
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+
+
+            await new Promise(resolve => setTimeout(resolve, 1000));
+
+            // Assume user saved (we can't detect if they cancelled the native dialog)
+            return true;
+        } catch (error) {
+            console.error('Download failed:', error);
+            return false;
+        }
     }
 }
 

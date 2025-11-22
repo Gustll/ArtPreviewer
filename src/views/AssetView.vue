@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { assetService } from '@/services/asset.service';
 import GridAsset from '@/shared/components/GridAsset.vue';
 import ListAsset from '@/shared/components/ListAsset.vue';
 import IconLoader from '@/shared/icons/IconLoader.vue';
@@ -28,11 +29,16 @@ function assetActive(id: number): boolean {
     return activeAssets.value.includes(id);
 }
 
-function downloadAsset(id: number) {
-    previewer.downloadAssets([id]);
-    const index = activeAssets.value.indexOf(id);
-    if (index > -1) {
-        activeAssets.value.splice(index, 1);
+async function downloadAsset(id: number) {
+    const shouldDownload = await assetService.triggerDownloadPrompt(
+        previewer.assets,
+        id,
+    );
+
+    if (shouldDownload) {
+        // User saved the file, now record the download
+        await previewer.downloadAssets([id]);
+        activeAssets.value = [];
     }
 }
 </script>

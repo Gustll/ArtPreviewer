@@ -150,7 +150,7 @@ export const mockApi = {
      * GET /api/downloads/history
      */
     async getDownloadHistory(params: URLSearchParams): Promise<HistoryAsset[]> {
-        await new Promise(resolve => setTimeout(resolve, 500));
+        await new Promise(resolve => setTimeout(resolve, 1500));
 
         if (SIMULATE_ERROR) {
             throw simulateError();

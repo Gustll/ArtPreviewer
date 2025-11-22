@@ -86,7 +86,7 @@ export const usePreviewerStore = defineStore('previewer', () => {
             console.error('Failed to download assets:', e);
         } finally {
             //loading.value = false;
-            ui.addNotification({ message: "Assets Successfuly Downloaded", type: NotificationType.Action })
+            ui.addNotification({ message: "Download Logged Successfully", type: NotificationType.Action })
         }
     }
 
