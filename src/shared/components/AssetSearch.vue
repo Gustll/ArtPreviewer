@@ -40,16 +40,18 @@ watch(
 </script>
 
 <template>
-    <div
-        class="w-100 container-bg-light shadow-m search flex flex-row items-center br-pill pl3">
-        <IconSearch />
-        <input
-            id="search"
-            v-model="filter.search"
-            type="text"
-            class="f7 w-100 h-100 pl2 pr3 text-muted bg-transparent bn"
-            autocomplete="off"
-            placeholder="Search assets..." />
+    <div>
+        <div
+            class="w-100 container-bg-light shadow-m search flex flex-row items-center br-pill pl3">
+            <IconSearch />
+            <input
+                id="search"
+                v-model="filter.search"
+                type="text"
+                class="f7 w-100 h-100 pl2 pr3 text-muted bg-transparent bn"
+                autocomplete="off"
+                placeholder="Search assets..." />
+        </div>
     </div>
 </template>
 

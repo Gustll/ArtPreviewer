@@ -6,6 +6,9 @@ import '@/styles/tachyons.scss';
 
 import App from './App.vue';
 import router from './router';
+import { deviceService } from './services/device.service';
+
+deviceService.init();
 
 const app = createApp(App);
 

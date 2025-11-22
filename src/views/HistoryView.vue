@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { deviceService } from '@/services/device.service';
 import GridAsset from '@/shared/components/GridAsset.vue';
 import ListAsset from '@/shared/components/ListAsset.vue';
 import IconLoader from '@/shared/icons/IconLoader.vue';
@@ -44,7 +45,10 @@ async function downloadAsset(ids: number[]) {
     <div
         v-else
         class="w-100 h-100 flex assets-container relative overflow-y-auto br4"
-        :class="previewer.gridDisplay ? 'flex-wrap' : 'flex-column'">
+        :class="[
+            previewer.gridDisplay ? 'flex-wrap' : 'flex-column',
+            deviceService.isMobile ? 'items-center' : '',
+        ]">
         <IconLoader
             v-if="previewer.loading.history"
             class="absolute" />
@@ -55,7 +59,7 @@ async function downloadAsset(ids: number[]) {
                 @download-asset="downloadAsset([asset.assetId])"
                 :asset="asset"
                 :active="assetActive(asset.id)"
-                v-if="previewer.gridDisplay" />
+                v-if="previewer.gridDisplay || deviceService.isMobile" />
             <ListAsset
                 @download-asset="downloadAsset([asset.assetId])"
                 :asset="asset"

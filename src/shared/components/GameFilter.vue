@@ -1,18 +1,18 @@
 <script setup lang="ts">
-import { onMounted, ref } from 'vue';
+import { onMounted } from 'vue';
 import { assetService } from '@/services/asset.service';
 import type { GameTagResponse } from '@/types/asset';
 import { usePreviewerStore } from '@/stores/previewer';
-import { storeToRefs } from 'pinia';
 
 const previewer = usePreviewerStore();
 
-const gameTags = ref<GameTagResponse[]>([]);
-
 onMounted(async () => {
+    if (previewer.gameTags.length > 0) {
+        return;
+    }
     const tags = await assetService.getGameTags();
     if (tags) {
-        gameTags.value = tags;
+        previewer.gameTags = tags;
     }
 });
 
@@ -36,7 +36,7 @@ function tagActive(id: number): boolean {
         <span class="text fw8 f3 pb3">Game</span>
         <div
             class="flex flex-wrap container-bg-light shadow-m br4 game-tag-container pa2">
-            <div v-for="tag in gameTags">
+            <div v-for="tag in previewer.gameTags">
                 <div>
                     <div
                         class="container-tag hover-tag dib pointer"

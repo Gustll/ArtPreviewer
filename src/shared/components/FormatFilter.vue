@@ -6,12 +6,12 @@ import { usePreviewerStore } from '@/stores/previewer';
 
 const previewer = usePreviewerStore();
 
-const assetFormats = ref<FormatResponse[]>([]);
-
 onMounted(async () => {
-    const tags = await assetService.getAssetFormats();
-    if (tags) {
-        assetFormats.value = tags;
+    if (previewer.assetFormats.length === 0) {
+        const tags = await assetService.getAssetFormats();
+        if (tags) {
+            previewer.assetFormats = tags;
+        }
     }
 });
 
@@ -36,7 +36,7 @@ function tagActive(id: number): boolean {
         <div
             class="flex flex-wrap container-bg-light shadow-m br4 game-tag-container pa2">
             <div
-                v-for="format in assetFormats"
+                v-for="format in previewer.assetFormats"
                 class="container-tag hover-tag dib pointer"
                 :class="{ active: tagActive(format.id) }"
                 @click="toggleFormat(format)">

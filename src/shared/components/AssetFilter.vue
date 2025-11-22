@@ -6,7 +6,7 @@ import GameFilter from './GameFilter.vue';
 
 <template>
     <div class="w-100 h-100 container-bg shadow-m br4 pa3">
-        <div class="flex flex-column filter-container">
+        <div class="flex flex-column filter-container overflow-y-auto h-100">
             <ContentSearch />
             <GameFilter />
             <FormatFilter />
@@ -17,5 +17,6 @@ import GameFilter from './GameFilter.vue';
 <style scoped lang="scss">
 .filter-container {
     gap: 20px;
+    min-height: 0;
 }
 </style>

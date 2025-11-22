@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { deviceService } from '@/services/device.service';
+import FilterToggle from './FilterToggle.vue';
 import ModeSwitcher from './ModeSwitcher.vue';
 import ThemeSwitcher from './ThemeSwitcher.vue';
 
@@ -24,8 +26,11 @@ const navItems = [
         </div>
 
         <div class="w-40 flex justify-end">
-            <div class="flex flex-row actions">
-                <ModeSwitcher />
+            <div
+                class="flex flex-row"
+                :class="deviceService.isMobile ? 'actions-m' : 'actions'">
+                <ModeSwitcher v-if="!deviceService.isMobile" />
+                <FilterToggle />
                 <ThemeSwitcher />
             </div>
         </div>
@@ -49,6 +54,9 @@ const navItems = [
     }
     .actions {
         gap: 10px;
+    }
+    .actions-m {
+        gap: 1px;
     }
 }
 </style>

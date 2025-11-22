@@ -24,6 +24,7 @@ export interface AssetFilters {
     search: string;
     format: Record<number, string>;
     gameTags: Record<number, string>,
+    visible: boolean
 }
 
 export interface AssetDownloadResponse extends AssetResponse {

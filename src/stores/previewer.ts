@@ -1,19 +1,24 @@
 import { ref, reactive, computed } from 'vue';
 import { defineStore } from 'pinia';
 import { assetService } from '@/services/asset.service';
-import type { Asset, AssetFilters, HistoryAsset, } from '@/types/asset';
+import type { Asset, AssetFilters, FormatResponse, GameTagResponse, HistoryAsset, } from '@/types/asset';
 import { isErrorResponse } from '@/types/api';
 import { useUIStore } from './ui';
 import { NotificationType } from '@/types/ui';
 import type { DisplayMode } from '@/types/common';
+import { deviceService } from '@/services/device.service';
 
 export const usePreviewerStore = defineStore('previewer', () => {
     const ui = useUIStore();
     const filter = reactive<AssetFilters>({
         search: '',
         gameTags: {},
-        format: {}
+        format: {},
+        visible: !deviceService.isMobile
     })
+
+    const gameTags = ref<GameTagResponse[]>([]);
+    const assetFormats = ref<FormatResponse[]>([]);
 
     const displayMode = ref<DisplayMode>('grid')
 
@@ -98,6 +103,7 @@ export const usePreviewerStore = defineStore('previewer', () => {
 
 
     const gridDisplay = computed(() => displayMode.value === 'grid');
+    const showFilter = computed(() => filter.visible);
 
-    return { filter, assets, history, displayMode, gridDisplay, loading, fetchAssets, downloadAssets, fetchHistory, resetFilter };
+    return { gameTags, assetFormats, filter, assets, history, displayMode, gridDisplay, loading, showFilter, fetchAssets, downloadAssets, fetchHistory, resetFilter };
 });
