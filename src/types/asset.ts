@@ -6,6 +6,11 @@ export interface Asset {
     thumbnailUrl: string,
 }
 
+export interface HistoryAsset extends Asset {
+    assetId: number,
+    insertedAt: string
+}
+
 export interface AssetResponse extends Asset {
     fileName: string,
     size: string,

@@ -53,12 +53,12 @@ function downloadAsset(id: number) {
             v-for="asset in previewer.history"
             @click="toggleAsset(asset.id)">
             <GridAsset
-                @download-asset="downloadAsset(asset.id)"
+                @download-asset="downloadAsset(asset.assetId)"
                 :asset="asset"
                 :active="assetActive(asset.id)"
                 v-if="previewer.gridDisplay" />
             <ListAsset
-                @download-asset="downloadAsset(asset.id)"
+                @download-asset="downloadAsset(asset.assetId)"
                 :asset="asset"
                 :active="assetActive(asset.id)"
                 v-else />

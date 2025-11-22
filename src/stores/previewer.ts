@@ -1,7 +1,7 @@
 import { ref, reactive, computed } from 'vue';
 import { defineStore } from 'pinia';
 import { assetService } from '@/services/asset.service';
-import type { Asset, AssetFilters, } from '@/types/asset';
+import type { Asset, AssetFilters, HistoryAsset, } from '@/types/asset';
 import { isErrorResponse } from '@/types/api';
 import { useUIStore } from './ui';
 import { NotificationType } from '@/types/ui';
@@ -18,7 +18,7 @@ export const usePreviewerStore = defineStore('previewer', () => {
     const displayMode = ref<DisplayMode>('grid')
 
     const assets = ref<Asset[]>([]);
-    const history = ref<Asset[]>([]);
+    const history = ref<HistoryAsset[]>([]);
 
     const loading = reactive({
         assets: false,

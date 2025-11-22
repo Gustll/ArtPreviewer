@@ -1,7 +1,7 @@
 // Just for the Demo to create the mock data - a poor man's BE endpoint
 
 import type { ApiResponse, ErrorResponse } from '@/types/api';
-import type { AssetResponse, Asset, GameTagResponse, FormatResponse, DownloadRequest } from '@/types/asset';
+import type { AssetResponse, Asset, GameTagResponse, FormatResponse, DownloadRequest, HistoryAsset } from '@/types/asset';
 
 const mockGameTags: GameTagResponse[] = [{ game: 'PIXEL', id: 1 }, { game: 'Samurai', id: 2 }, { game: 'Elden Ring', id: 3 }]
 const mockAssetFormats: FormatResponse[] = [{ type: 'png', id: 1 }, { type: 'svg', id: 2 }, { type: 'jpg', id: 3 }]
@@ -149,7 +149,7 @@ export const mockApi = {
     /**
      * GET /api/downloads/history
      */
-    async getDownloadHistory(params: URLSearchParams): Promise<Asset[]> {
+    async getDownloadHistory(params: URLSearchParams): Promise<HistoryAsset[]> {
         await new Promise(resolve => setTimeout(resolve, 500));
 
         if (SIMULATE_ERROR) {
@@ -183,7 +183,7 @@ export const mockApi = {
         downloadRecords = downloadRecords.filter(record => record.userId === userId);
 
         // 3. Join with mockAssets to get minimal asset data
-        let downloadHistory: Asset[] = downloadRecords
+        let downloadHistory: HistoryAsset[] = downloadRecords
             .map(record => {
                 const asset = mockAssets.find(a => a.id === record.assetId);
                 if (!asset) return null;
@@ -194,10 +194,11 @@ export const mockApi = {
                     format: asset.format,
                     gameTag: asset.gameTag,
                     thumbnailUrl: asset.thumbnailUrl,
-                    downloadDate: record.insertedAt
+                    insertedAt: record.insertedAt,
+                    assetId: asset.id
                 };
             })
-            .filter(item => item !== null) as Asset[];
+            .filter(item => item !== null) as HistoryAsset[];
 
 
 
