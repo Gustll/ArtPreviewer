@@ -65,13 +65,14 @@ class AssetService {
     /**
      * Downloads all the assets
      */
-    async downloadAssets(assets: Asset[], assetIds: number[]): Promise<void> {
+    async downloadAssets(assetIds: number[]): Promise<void> {
         const userId = authService.getCurrentUserId();
 
         // Save download records
         const downloadRequests = assetIds.map(assetId => ({ assetId, userId }));
 
         if (assetIds.length === 1) {
+            const assets = await mockApi.getAssetsByIds(assetIds);
             // Single file - direct download
             const assetId = assetIds[0]
             const asset = assets.filter(({ id }) => id === assetId)[0] as Asset;
@@ -79,7 +80,7 @@ class AssetService {
             this.triggerFileDownload(asset.thumbnailUrl, asset.name);
         } else {
             // Multiple files - create ZIP
-            await this.downloadAsZip(assets, assetIds);
+            await this.downloadAsZip(assetIds);
         }
         await mockApi.saveDownloads(downloadRequests);
     }
@@ -91,8 +92,10 @@ class AssetService {
         link.click();
     }
 
-    private async downloadAsZip(assets: Asset[], assetIds: number[]): Promise<void> {
+    private async downloadAsZip(assetIds: number[]): Promise<void> {
         const zip = new JSZip();
+
+        const assets = await mockApi.getAssetsByIds(assetIds);
         // Fetch all images and add to ZIP with correct format
         for (const asset of assets) {
             try {

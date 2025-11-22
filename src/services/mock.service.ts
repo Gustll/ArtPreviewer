@@ -285,5 +285,11 @@ export const mockApi = {
 
         // Save back to localStorage
         localStorage.setItem(STORAGE_KEY, JSON.stringify(allDownloads));
+    },
+
+    async getAssetsByIds(assetIds: number[]): Promise<Asset[]> {
+        await new Promise(resolve => setTimeout(resolve, 200));
+
+        return mockAssets.filter(asset => assetIds.includes(asset.id));
     }
 };

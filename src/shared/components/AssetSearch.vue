@@ -2,10 +2,15 @@
 import { usePreviewerStore } from '@/stores/previewer';
 import IconSearch from '../icons/IconSearch.vue';
 import { storeToRefs } from 'pinia';
-import { watch } from 'vue';
+import { computed, watch } from 'vue';
+import { useRoute } from 'vue-router';
 
 const previewer = usePreviewerStore();
 const { filter } = storeToRefs(previewer);
+
+const route = useRoute();
+
+const isHistory = computed(() => route.path === '/history');
 
 const debounce = (fn: () => void, delay: number) => {
     let timeout: ReturnType<typeof setTimeout>;
@@ -16,10 +21,22 @@ const debounce = (fn: () => void, delay: number) => {
 };
 
 const debouncedFetch = debounce(() => {
-    previewer.fetchAssets();
+    if (isHistory.value) {
+        previewer.fetchHistory();
+    } else {
+        previewer.fetchAssets();
+    }
 }, 800);
 
 watch(() => previewer.filter.search, debouncedFetch);
+
+watch(
+    () => route.fullPath,
+    () => {
+        // reset filters on route change
+        previewer.resetFilter();
+    },
+);
 </script>
 
 <template>

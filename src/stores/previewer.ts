@@ -71,7 +71,7 @@ export const usePreviewerStore = defineStore('previewer', () => {
         if (assetIds.length === 0) return;
 
         try {
-            await assetService.downloadAssets(assets.value, assetIds);
+            await assetService.downloadAssets(assetIds);
             console.log(`Downloaded ${assetIds.length} assets`);
         } catch (e) {
             // if (isErrorResponse(e)) {
@@ -90,8 +90,14 @@ export const usePreviewerStore = defineStore('previewer', () => {
         }
     }
 
+    function resetFilter() {
+        filter.search = ''
+        filter.gameTags = {}
+        filter.format = {}
+    }
+
 
     const gridDisplay = computed(() => displayMode.value === 'grid');
 
-    return { filter, assets, history, displayMode, gridDisplay, loading, fetchAssets, downloadAssets, fetchHistory };
+    return { filter, assets, history, displayMode, gridDisplay, loading, fetchAssets, downloadAssets, fetchHistory, resetFilter };
 });
