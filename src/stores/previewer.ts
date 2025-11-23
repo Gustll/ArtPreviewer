@@ -39,7 +39,7 @@ export const usePreviewerStore = defineStore('previewer', () => {
         history: false,
     });
 
-    async function fetchAssets() {
+    async function fetchAssets(): Promise<void> {
         loading.value = true;
 
         try {
@@ -59,7 +59,6 @@ export const usePreviewerStore = defineStore('previewer', () => {
                 });
             }
             console.error('Failed to fetch assets:', e);
-            return null;
         } finally {
             loading.value = false;
         }
@@ -87,7 +86,7 @@ export const usePreviewerStore = defineStore('previewer', () => {
         }
     }
 
-    async function fetchHistory() {
+    async function fetchHistory(): Promise<void> {
         loading.value = true;
 
         try {
@@ -111,13 +110,11 @@ export const usePreviewerStore = defineStore('previewer', () => {
         }
     }
 
-    async function downloadAssets(assetIds: number[]) {
+    async function downloadAssets(assetIds: number[]): Promise<void> {
         if (assetIds.length === 0) return;
 
         try {
-            console.log(assetIds);
             await assetService.downloadAssets(assetIds);
-            console.log(`Downloaded ${assetIds.length} assets`);
         } catch (e) {
             // if (isErrorResponse(e)) {
             //     error.value = e;
@@ -138,7 +135,7 @@ export const usePreviewerStore = defineStore('previewer', () => {
         }
     }
 
-    function resetFilter() {
+    function resetFilter(): void {
         filter.search = '';
         filter.gameTags = {};
         filter.format = {};

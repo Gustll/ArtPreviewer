@@ -117,7 +117,7 @@ function toggleShowMore(assetId: number | null) {
         :assetId="showMore"
         @close="toggleShowMore(null)" />
     <DownloadBulk
-        v-if="activeAssets.length > 1"
+        v-if="activeAssets.length > 1 && showMore === null"
         @download-bulk="downloadBulk()" />
 </template>
 

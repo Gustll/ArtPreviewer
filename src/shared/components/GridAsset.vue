@@ -29,13 +29,13 @@ function showMore() {
 
 <template>
     <div
-        class="asset-container container-bg-light shadow-m br4 flex flex-column h-auto"
-        :class="{ active: props.active || isHovered }">
-        <div @click="toggleAsset()">
-            <div
-                class="flex flex-row justify-between pointer"
-                @mouseenter="isHovered = true"
-                @mouseleave="isHovered = false">
+        class="asset-container container-bg-light shadow-m br4 flex flex-column h-auto pointer"
+        :class="{ active: props.active || isHovered }"
+        @click="toggleAsset()">
+        <div
+            @mouseenter="isHovered = true"
+            @mouseleave="isHovered = false">
+            <div class="flex flex-row justify-between">
                 <div
                     class="img-container overflow-hidden flex items-center justify-center">
                     <img
@@ -62,12 +62,12 @@ function showMore() {
         <div class="action-container flex flex-row">
             <button
                 class="w-50 action-secondary-btn"
-                @click="showMore()">
+                @click.stop="showMore()">
                 more
             </button>
             <button
                 class="w-50 action-btn"
-                @click="downloadAsset()">
+                @click.stop="downloadAsset()">
                 Download
             </button>
         </div>

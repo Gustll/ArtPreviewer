@@ -49,6 +49,9 @@ Later on the mock could be improved to easily tests layout with big chunks of da
 - expand e2e tests as for the demo i did not write any in depth (this should be later on implemented as each component should potentialy have at least some unit tests)
 - set up CI/CD pipeline
 - integration tests
+- stricter linter
+- add asset & history refresh
+- add select & deselect all btn
 
 ## Project Setup
 

@@ -32,30 +32,27 @@ function showMore() {
     <div
         @mouseenter="isHovered = true"
         @mouseleave="isHovered = false"
+        @click="toggleAsset()"
         class="asset-container container-bg-light shadow-m br4 flex flex-row h-auto w-100 justify-between pointer"
         :class="{ active: props.active || isHovered }">
-        <div @click="toggleAsset()">
-            <div class="flex flex-row asset-info">
-                <div
-                    class="img-container overflow-hidden flex items-center justify-center">
-                    <img
-                        :src="asset.thumbnailUrl"
-                        :alt="asset.name"
-                        class="w-auto h-auto db"
-                        loading="lazy" />
-                </div>
+        <div class="flex flex-row asset-info">
+            <div
+                class="img-container overflow-hidden flex items-center justify-center">
+                <img
+                    :src="asset.thumbnailUrl"
+                    :alt="asset.name"
+                    class="w-auto h-auto db"
+                    loading="lazy" />
+            </div>
 
-                <div class="flex justify-center flex-column">
-                    <div class="truncate flex flex-column">
-                        <span class="ttu text-muted">{{
-                            asset.format.type
-                        }}</span>
-                        <span class="asset-name f4 fw8">{{ asset.name }}</span>
-                    </div>
-                    <div class="pt1">
-                        <div class="container-tag dib">
-                            {{ asset.gameTag.game }}
-                        </div>
+            <div class="flex justify-center flex-column">
+                <div class="truncate flex flex-column">
+                    <span class="ttu text-muted">{{ asset.format.type }}</span>
+                    <span class="asset-name f4 fw8">{{ asset.name }}</span>
+                </div>
+                <div class="pt1">
+                    <div class="container-tag dib">
+                        {{ asset.gameTag.game }}
                     </div>
                 </div>
             </div>
@@ -65,12 +62,12 @@ function showMore() {
             <div class="action-container flex flex-column h-100 justify-center">
                 <button
                     class="action-secondary-btn"
-                    @click="showMore()">
+                    @click.stop="showMore()">
                     more
                 </button>
                 <button
                     class="action-btn"
-                    @click="downloadAsset()">
+                    @click.stop="downloadAsset()">
                     Download
                 </button>
             </div>
