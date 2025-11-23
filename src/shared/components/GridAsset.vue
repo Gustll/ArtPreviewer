@@ -62,7 +62,7 @@ function showMore() {
         <div class="action-container flex flex-row">
             <button
                 class="w-50 action-secondary-btn"
-                @click="showMore(asset.assetId)">
+                @click="showMore()">
                 more
             </button>
             <button

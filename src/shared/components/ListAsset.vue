@@ -7,7 +7,6 @@ const emit = defineEmits(['downloadAsset', 'toggleAsset', 'showMore']);
 
 interface Props {
     asset: Asset;
-    loading?: boolean;
     active?: boolean;
 }
 
@@ -66,7 +65,7 @@ function showMore() {
             <div class="action-container flex flex-column h-100 justify-center">
                 <button
                     class="action-secondary-btn"
-                    @click="showMore(asset.assetId)">
+                    @click="showMore()">
                     more
                 </button>
                 <button
