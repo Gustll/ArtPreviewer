@@ -28,6 +28,7 @@ const previewer = usePreviewerStore();
                 <template v-else>
                     <div
                         v-if="previewer.showFilter"
+                        id="asset-filter"
                         :class="previewer.showFilter ? 'w-30' : 'w-100'">
                         <AppSidebar />
                     </div>

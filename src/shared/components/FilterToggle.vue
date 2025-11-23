@@ -20,7 +20,7 @@ watchEffect(() => {
 
 <template>
     <div
-        class="theme-switch pointer br-100 flex items-center justify-center"
+        class="filter-switch pointer br-100 flex items-center justify-center"
         @click="toggleFilter()">
         <IconMenuOpen v-if="!previewer.showFilter" />
         <IconMenuClose v-else />
@@ -32,7 +32,7 @@ watchEffect(() => {
     background: var(--bg);
 }
 
-.theme-switch {
+.filter-switch {
     width: 52px;
     height: 52px;
     &:hover {
