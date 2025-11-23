@@ -5,7 +5,7 @@ interface Props {
 }
 
 const props = defineProps<Props>();
-const { active = false, size = 24 } = props;
+const { size = 24 } = props;
 </script>
 
 <template>

@@ -36,7 +36,9 @@ function tagActive(id: number): boolean {
         <span class="text fw8 f3 pb3">Game</span>
         <div
             class="flex flex-wrap container-bg-light shadow-m br4 game-tag-container pa2 items-start overflow-y-auto">
-            <div v-for="tag in previewer.gameTags">
+            <div
+                v-for="tag in previewer.gameTags"
+                :key="tag.id">
                 <div>
                     <div
                         class="container-tag hover-tag dib pointer inline-flex"

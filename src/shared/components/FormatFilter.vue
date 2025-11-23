@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, ref } from 'vue';
+import { onMounted } from 'vue';
 import { assetService } from '@/services/asset.service';
 import type { FormatResponse } from '@/types/asset';
 import { usePreviewerStore } from '@/stores/previewer';
@@ -36,6 +36,7 @@ function tagActive(id: number): boolean {
         <div
             class="flex flex-wrap container-bg-light shadow-m br4 format-tag-container pa2 overflow-y-auto">
             <div
+                :key="format.id"
                 v-for="format in previewer.assetFormats"
                 class="container-tag hover-tag dib pointer"
                 :class="{ active: tagActive(format.id) }"

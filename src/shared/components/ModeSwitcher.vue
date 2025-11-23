@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, watchEffect } from 'vue';
+import { watchEffect } from 'vue';
 import IconGrid from '../icons/IconGrid.vue';
 import IconList from '../icons/IconList.vue';
 import { usePreviewerStore } from '@/stores/previewer';

@@ -4,7 +4,6 @@ import type {
     Asset,
     GameTagResponse,
     FormatResponse,
-    DownloadRequest,
     HistoryAsset,
 } from '@/types/asset';
 import { mockApi } from './mock.service';

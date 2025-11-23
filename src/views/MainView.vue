@@ -93,7 +93,9 @@ function toggleShowMore(assetId: number | null) {
             deviceService.isMobile ? 'justify-center' : '',
         ]">
         <IconLoader v-if="previewer.loading" />
-        <div v-for="asset in assets">
+        <div
+            v-for="asset in assets"
+            :key="asset.id">
             <GridAsset
                 @show-more="toggleShowMore"
                 @toggle-asset="toggleAsset(asset.assetId)"
