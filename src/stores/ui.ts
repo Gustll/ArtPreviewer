@@ -1,4 +1,3 @@
-
 import type { UINotification } from '@/types/ui';
 import { defineStore } from 'pinia';
 import { computed, reactive } from 'vue';

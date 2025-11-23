@@ -10,7 +10,7 @@ export interface ApiResponse<T> {
 }
 
 export function isErrorResponse(
-    value: unknown
+    value: unknown,
 ): value is ApiResponse<never> & { error: ErrorResponse; data: undefined } {
     return (
         typeof value === 'object' &&

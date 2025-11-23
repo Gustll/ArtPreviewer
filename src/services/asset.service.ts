@@ -1,4 +1,12 @@
-import type { AssetResponse, AssetFilters, Asset, GameTagResponse, FormatResponse, DownloadRequest, HistoryAsset } from '@/types/asset';
+import type {
+    AssetResponse,
+    AssetFilters,
+    Asset,
+    GameTagResponse,
+    FormatResponse,
+    DownloadRequest,
+    HistoryAsset,
+} from '@/types/asset';
 import { mockApi } from './mock.service';
 import { authService } from './auth.service';
 import JSZip from 'jszip';
@@ -11,10 +19,10 @@ class AssetService {
         const params = new URLSearchParams();
 
         if (filters.search) params.append('search', filters.search);
-        Object.keys(filters.format).forEach(id => {
+        Object.keys(filters.format).forEach((id) => {
             params.append('format', id);
         });
-        Object.keys(filters.gameTags).forEach(id => {
+        Object.keys(filters.gameTags).forEach((id) => {
             params.append('gameTag', id);
         });
 
@@ -37,10 +45,10 @@ class AssetService {
         const userId = authService.getCurrentUserId();
 
         if (filters.search) params.append('search', filters.search);
-        Object.keys(filters.format).forEach(id => {
+        Object.keys(filters.format).forEach((id) => {
             params.append('format', id);
         });
-        Object.keys(filters.gameTags).forEach(id => {
+        Object.keys(filters.gameTags).forEach((id) => {
             params.append('gameTag', id);
         });
         params.append('userId', userId);
@@ -69,12 +77,15 @@ class AssetService {
         const userId = authService.getCurrentUserId();
 
         // Save download records
-        const downloadRequests = assetIds.map(assetId => ({ assetId, userId }));
+        const downloadRequests = assetIds.map((assetId) => ({
+            assetId,
+            userId,
+        }));
 
         if (assetIds.length === 1) {
             const assets = await mockApi.getAssetsByIds(assetIds);
             // Single file - direct download
-            const assetId = assetIds[0]
+            const assetId = assetIds[0];
             const asset = assets.filter(({ id }) => id === assetId)[0] as Asset;
 
             this.triggerFileDownload(asset.thumbnailUrl, asset.name);
@@ -122,7 +133,6 @@ class AssetService {
         link.click();
         URL.revokeObjectURL(url);
     }
-
 }
 
 export const assetService = new AssetService();

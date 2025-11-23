@@ -1,9 +1,9 @@
 export enum NotificationType {
     Error = 'error',
-    Action = 'action'
+    Action = 'action',
 }
 
 export interface UINotification {
-    message: string,
-    type: NotificationType
+    message: string;
+    type: NotificationType;
 }

@@ -2,9 +2,8 @@
 // For the demo we just mock a random user id
 
 class AuthService {
-
     getCurrentUserId(): string {
-        return '1'
+        return '1';
     }
 }
 
