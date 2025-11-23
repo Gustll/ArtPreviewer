@@ -3,38 +3,165 @@
 import type { ApiResponse, ErrorResponse } from '@/types/api';
 import type { AssetResponse, Asset, GameTagResponse, FormatResponse, DownloadRequest, HistoryAsset } from '@/types/asset';
 
-const mockGameTags: GameTagResponse[] = [{ game: 'PIXEL', id: 1 }, { game: 'Samurai', id: 2 }, { game: 'Elden Ring', id: 3 }]
-const mockAssetFormats: FormatResponse[] = [{ type: 'png', id: 1 }, { type: 'svg', id: 2 }, { type: 'jpg', id: 3 }]
+const mockGameTags: GameTagResponse[] = [
+    { game: 'PIXEL', id: 1 },
+    { game: 'Samurai', id: 2 },
+    { game: 'Elden Ring', id: 3 },
+    { game: 'Cyberpunk 2077', id: 4 },
+    { game: 'Zelda TOTK', id: 5 },
+    { game: 'Dark Souls', id: 6 },
+    { game: 'Hollow Knight', id: 7 }
+];
 
-const mockAssets: Asset[] = [
+const mockAssetFormats: FormatResponse[] = [
+    { type: 'png', id: 1 },
+    { type: 'svg', id: 2 },
+    { type: 'jpg', id: 3 },
+    { type: 'webp', id: 4 }
+];
+
+const mockAssets: AssetResponse[] = [
     {
         id: 1,
-        name: "Solider Walk",
+        name: "Pixel Warrior",
+        fileName: "pixel-warrior.png",
         format: mockAssetFormats[0] as FormatResponse,
+        size: "1.2 MB",
+        datePosted: "2025-11-18T10:00:00Z",
+        author: "PixelArtist",
         gameTag: mockGameTags[0] as GameTagResponse,
-        thumbnailUrl: 'src/api/assets/thumbnails/soldier-walk.png',
+        dimensions: "512x512",
+        thumbnailUrl: "src/api/assets/thumbnails/soldier-walk.png",
+        imageUrl: "src/api/assets/images/soldier-walk.png",
         assetId: 1
     },
     {
         id: 2,
-        name: "Samurai",
+        name: "Samurai Warrior",
+        fileName: "samurai-warrior.png",
         format: mockAssetFormats[0] as FormatResponse,
+        size: "2.4 MB",
+        datePosted: "2025-11-17T14:30:00Z",
+        author: "SamuraiDev",
         gameTag: mockGameTags[1] as GameTagResponse,
-        thumbnailUrl: 'src/api/assets/thumbnails/samurai.png',
-        assetId: 1
+        dimensions: "1920x1080",
+        thumbnailUrl: "src/api/assets/thumbnails/samurai.png",
+        imageUrl: "src/api/assets/images/samurai.png",
+        assetId: 2
+    },
+    {
+        id: 3,
+        name: "Elden Ring Landscape",
+        fileName: "elden-ring-landscape.jpg",
+        format: mockAssetFormats[2] as FormatResponse,
+        size: "3.8 MB",
+        datePosted: "2025-11-16T09:15:00Z",
+        author: "FromSoftware",
+        gameTag: mockGameTags[2] as GameTagResponse,
+        dimensions: "2560x1440",
+        thumbnailUrl: "src/api/assets/thumbnails/soldier-walk.png",
+        imageUrl: "src/api/assets/images/soldier-walk.png",
+        assetId: 3
+    },
+    {
+        id: 4,
+        name: "Cyberpunk City Night",
+        fileName: "cyberpunk-city-night.png",
+        format: mockAssetFormats[0] as FormatResponse,
+        size: "4.1 MB",
+        datePosted: "2025-11-15T16:45:00Z",
+        author: "CD Projekt",
+        gameTag: mockGameTags[3] as GameTagResponse,
+        dimensions: "3840x2160",
+        thumbnailUrl: "src/api/assets/thumbnails/samurai.png",
+        imageUrl: "src/api/assets/images/samurai.png",
+        assetId: 4
+    },
+    {
+        id: 5,
+        name: "Zelda Temple Icon",
+        fileName: "zelda-temple-icon.svg",
+        format: mockAssetFormats[1] as FormatResponse,
+        size: "245 KB",
+        datePosted: "2025-11-14T11:20:00Z",
+        author: "Nintendo",
+        gameTag: mockGameTags[4] as GameTagResponse,
+        dimensions: "512x512",
+        thumbnailUrl: "src/api/assets/thumbnails/soldier-walk.png",
+        imageUrl: "src/api/assets/images/soldier-walk.png",
+        assetId: 5
+    },
+    {
+        id: 6,
+        name: "Dark Souls Boss Arena",
+        fileName: "dark-souls-boss-arena.jpg",
+        format: mockAssetFormats[2] as FormatResponse,
+        size: "5.2 MB",
+        datePosted: "2025-11-13T08:30:00Z",
+        author: "FromSoftware",
+        gameTag: mockGameTags[5] as GameTagResponse,
+        dimensions: "1920x1080",
+        thumbnailUrl: "src/api/assets/thumbnails/samurai.png",
+        imageUrl: "src/api/assets/images/samurai.png",
+        assetId: 6
+    },
+    {
+        id: 7,
+        name: "Pixel Castle",
+        fileName: "pixel-castle.png",
+        format: mockAssetFormats[0] as FormatResponse,
+        size: "890 KB",
+        datePosted: "2025-11-12T15:10:00Z",
+        author: "PixelArtist",
+        gameTag: mockGameTags[0] as GameTagResponse,
+        dimensions: "1024x768",
+        thumbnailUrl: "src/api/assets/thumbnails/soldier-walk.png",
+        imageUrl: "src/api/assets/images/soldier-walk.png",
+        assetId: 7
+    },
+    {
+        id: 8,
+        name: "Hollow Knight Character",
+        fileName: "hollow-knight-character.webp",
+        format: mockAssetFormats[3] as FormatResponse,
+        size: "1.5 MB",
+        datePosted: "2025-11-11T13:25:00Z",
+        author: "Team Cherry",
+        gameTag: mockGameTags[6] as GameTagResponse,
+        dimensions: "1080x1920",
+        thumbnailUrl: "src/api/assets/thumbnails/samurai.png",
+        imageUrl: "src/api/assets/images/samurai.png",
+        assetId: 8
+    },
+    {
+        id: 9,
+        name: "Samurai Sword Icon",
+        fileName: "samurai-sword-icon.svg",
+        format: mockAssetFormats[1] as FormatResponse,
+        size: "180 KB",
+        datePosted: "2025-11-10T10:40:00Z",
+        author: "SamuraiDev",
+        gameTag: mockGameTags[1] as GameTagResponse,
+        dimensions: "256x256",
+        thumbnailUrl: "src/api/assets/thumbnails/soldier-walk.png",
+        imageUrl: "src/api/assets/images/soldier-walk.png",
+        assetId: 9
+    },
+    {
+        id: 10,
+        name: "Elden Ring Character Portrait",
+        fileName: "elden-ring-character.jpg",
+        format: mockAssetFormats[2] as FormatResponse,
+        size: "2.9 MB",
+        datePosted: "2025-11-09T17:55:00Z",
+        author: "FromSoftware",
+        gameTag: mockGameTags[2] as GameTagResponse,
+        dimensions: "1200x1600",
+        thumbnailUrl: "src/api/assets/thumbnails/samurai.png",
+        imageUrl: "src/api/assets/images/samurai.png",
+        assetId: 10
     }
 ];
-
-const mockAsset: AssetResponse =
-{
-    ...mockAssets[0] as Asset,
-    fileName: '',
-    size: '',
-    datePosted: '',
-    author: '',
-    dimensions: '',
-    imageUrl: ''
-}
 
 const SIMULATE_ERROR = false;
 const ERROR_TYPE: 'network' | 'server' | 'notfound' = 'network';
@@ -136,16 +263,26 @@ export const mockApi = {
     },
 
     /**
-     * GET /api/assets/:fileName
-     */
-    async getAsset(fileName: string): Promise<AssetResponse | null> {
+ * GET /api/assets/:assetId
+ * Get single asset by ID with full details
+ */
+    async getAsset(assetId: number): Promise<AssetResponse | null> {
         await new Promise(resolve => setTimeout(resolve, 200));
 
         if (SIMULATE_ERROR) {
             throw simulateError();
         }
 
-        return mockAsset;
+        const asset = mockAssets.find(a => a.id === assetId);
+
+        if (!asset) {
+            throw {
+                message: 'Asset not found',
+                statusCode: 404
+            };
+        }
+
+        return asset;
     },
 
     /**

@@ -25,8 +25,8 @@ class AssetService {
     /**
      * Get single asset
      */
-    async getAsset(fileName: string): Promise<AssetResponse | null> {
-        return mockApi.getAsset(fileName);
+    async getAsset(assetId: number): Promise<AssetResponse | null> {
+        return mockApi.getAsset(assetId);
     }
 
     /**

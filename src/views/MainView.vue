@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { deviceService } from '@/services/device.service';
+import AssetMore from '@/shared/components/AssetMore.vue';
 import DownloadBulk from '@/shared/components/DownloadBulk.vue';
 import GridAsset from '@/shared/components/GridAsset.vue';
 import ListAsset from '@/shared/components/ListAsset.vue';
@@ -11,6 +12,7 @@ import { useRoute } from 'vue-router';
 const previewer = usePreviewerStore();
 
 const activeAssets = ref<number[]>([]);
+const showMore = ref<number | null>(null);
 
 const route = useRoute();
 
@@ -28,8 +30,6 @@ onMounted(() => {
 watch(
     () => route.fullPath,
     (newMode) => {
-        console.log('Route changed!', newMode);
-
         if (newMode === '/history') {
             previewer.fetchHistory();
         } else {
@@ -69,6 +69,14 @@ async function downloadBulk() {
     await previewer.downloadAssets(activeAssets.value);
     activeAssets.value = [];
 }
+
+function toggleShowMore(assetId: number | null) {
+    if (showMore.value) {
+        showMore.value = null;
+    } else {
+        showMore.value = assetId;
+    }
+}
 </script>
 
 <template>
@@ -87,12 +95,14 @@ async function downloadBulk() {
         <IconLoader v-if="previewer.loading" />
         <div v-for="asset in assets">
             <GridAsset
+                @show-more="toggleShowMore"
                 @toggle-asset="toggleAsset(asset.assetId)"
                 @download-asset="downloadAsset([asset.assetId])"
                 :asset="asset"
                 :active="assetActive(asset.assetId)"
                 v-if="previewer.gridDisplay || deviceService.isMobile" />
             <ListAsset
+                @show-more="toggleShowMore"
                 @toggle-asset="toggleAsset(asset.assetId)"
                 @download-asset="downloadAsset([asset.assetId])"
                 :asset="asset"
@@ -101,6 +111,9 @@ async function downloadBulk() {
         </div>
     </div>
 
+    <AssetMore
+        :assetId="showMore"
+        @close="toggleShowMore(null)" />
     <DownloadBulk
         v-if="activeAssets.length > 1"
         @download-bulk="downloadBulk()" />

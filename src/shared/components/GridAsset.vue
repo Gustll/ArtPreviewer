@@ -3,17 +3,15 @@ import type { Asset } from '@/types/asset';
 import IconCheck from '../icons/IconCheck.vue';
 import { ref } from 'vue';
 
-const emit = defineEmits(['downloadAsset', 'toggleAsset']);
+const emit = defineEmits(['downloadAsset', 'toggleAsset', 'showMore']);
 
 interface Props {
     asset: Asset;
-    loading?: boolean;
     active?: boolean;
 }
 
 const isHovered = ref(false);
 const props = withDefaults(defineProps<Props>(), {
-    loading: false,
     active: false,
 });
 
@@ -23,6 +21,9 @@ function downloadAsset() {
 
 function toggleAsset() {
     emit('toggleAsset');
+}
+function showMore() {
+    emit('showMore', props.asset.assetId);
 }
 </script>
 
@@ -59,7 +60,11 @@ function toggleAsset() {
             </div>
         </div>
         <div class="action-container flex flex-row">
-            <button class="w-50 action-secondary-btn">more</button>
+            <button
+                class="w-50 action-secondary-btn"
+                @click="showMore(asset.assetId)">
+                more
+            </button>
             <button
                 class="w-50 action-btn"
                 @click="downloadAsset()">

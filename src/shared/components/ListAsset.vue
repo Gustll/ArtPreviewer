@@ -3,7 +3,7 @@ import type { Asset } from '@/types/asset';
 import IconCheck from '../icons/IconCheck.vue';
 import { ref } from 'vue';
 
-const emit = defineEmits(['downloadAsset', 'toggleAsset']);
+const emit = defineEmits(['downloadAsset', 'toggleAsset', 'showMore']);
 
 interface Props {
     asset: Asset;
@@ -23,6 +23,9 @@ function downloadAsset() {
 
 function toggleAsset() {
     emit('toggleAsset');
+}
+function showMore() {
+    emit('showMore', props.asset.assetId);
 }
 </script>
 
@@ -61,7 +64,11 @@ function toggleAsset() {
 
         <div class="flex flex-row asset-actions">
             <div class="action-container flex flex-column h-100 justify-center">
-                <button class="action-secondary-btn">more</button>
+                <button
+                    class="action-secondary-btn"
+                    @click="showMore(asset.assetId)">
+                    more
+                </button>
                 <button
                     class="action-btn"
                     @click="downloadAsset()">

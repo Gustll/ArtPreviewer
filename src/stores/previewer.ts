@@ -1,7 +1,7 @@
 import { ref, reactive, computed } from 'vue';
 import { defineStore } from 'pinia';
 import { assetService } from '@/services/asset.service';
-import type { Asset, AssetFilters, FormatResponse, GameTagResponse, HistoryAsset, } from '@/types/asset';
+import type { Asset, AssetFilters, AssetResponse, FormatResponse, GameTagResponse, HistoryAsset, } from '@/types/asset';
 import { isErrorResponse } from '@/types/api';
 import { useUIStore } from './ui';
 import { NotificationType } from '@/types/ui';
@@ -47,8 +47,25 @@ export const usePreviewerStore = defineStore('previewer', () => {
                 ui.addNotification({ message: 'An unexpected error occurred on assets', type: NotificationType.Error })
             }
             console.error('Failed to fetch assets:', e);
+            return null
         } finally {
             loading.value = false;
+        }
+    }
+
+    async function fetchAsset(assetId: number): Promise<AssetResponse | null> {
+        try {
+            return await assetService.getAsset(assetId);
+        } catch (e) {
+            // Store catches and handles ApiError
+            error.assets = true
+            if (isErrorResponse(e)) {
+                ui.addNotification({ message: `${e.error.statusCode}: ${e.error.message}`, type: NotificationType.Error })
+            } else {
+                ui.addNotification({ message: 'An unexpected error occurred on asset', type: NotificationType.Error })
+            }
+            console.error('Failed to fetch asset:', e);
+            return null;
         }
     }
 
@@ -104,5 +121,5 @@ export const usePreviewerStore = defineStore('previewer', () => {
     const gridDisplay = computed(() => displayMode.value === 'grid');
     const showFilter = computed(() => filter.visible);
 
-    return { gameTags, assetFormats, filter, assets, history, displayMode, gridDisplay, loading, showFilter, fetchAssets, downloadAssets, fetchHistory, resetFilter };
+    return { gameTags, assetFormats, filter, assets, history, displayMode, gridDisplay, loading, showFilter, fetchAsset, fetchAssets, downloadAssets, fetchHistory, resetFilter };
 });
