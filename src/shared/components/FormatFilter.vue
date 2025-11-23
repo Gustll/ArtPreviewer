@@ -34,7 +34,7 @@ function tagActive(id: number): boolean {
     <div class="w-100 h-100 flex flex-column">
         <span class="text fw8 f3 pb3">Format</span>
         <div
-            class="flex flex-wrap container-bg-light shadow-m br4 game-tag-container pa2">
+            class="flex flex-wrap container-bg-light shadow-m br4 format-tag-container pa2 overflow-y-auto">
             <div
                 v-for="format in previewer.assetFormats"
                 class="container-tag hover-tag dib pointer"
@@ -46,9 +46,9 @@ function tagActive(id: number): boolean {
     </div>
 </template>
 
-<style lang="scss" ts>
-.game-tag-container {
-    height: 180px;
+<style lang="scss" scoped>
+.format-tag-container {
+    max-height: 180px;
     gap: 5px;
 
     & > div {

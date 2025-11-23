@@ -35,11 +35,11 @@ function tagActive(id: number): boolean {
     <div class="w-100 flex flex-column">
         <span class="text fw8 f3 pb3">Game</span>
         <div
-            class="flex flex-wrap container-bg-light shadow-m br4 game-tag-container pa2">
+            class="flex flex-wrap container-bg-light shadow-m br4 game-tag-container pa2 items-start overflow-y-auto">
             <div v-for="tag in previewer.gameTags">
                 <div>
                     <div
-                        class="container-tag hover-tag dib pointer"
+                        class="container-tag hover-tag dib pointer inline-flex"
                         :class="{ active: tagActive(tag.id) }"
                         @click="toggleGameTag(tag)">
                         {{ tag.game }}
@@ -50,9 +50,9 @@ function tagActive(id: number): boolean {
     </div>
 </template>
 
-<style lang="scss" ts>
+<style lang="scss" scoped>
 .game-tag-container {
-    height: 180px;
+    max-height: 180px;
     gap: 5px;
 
     .active {
