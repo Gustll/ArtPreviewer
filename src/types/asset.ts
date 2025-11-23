@@ -4,10 +4,10 @@ export interface Asset {
     format: FormatResponse,
     gameTag: GameTagResponse,
     thumbnailUrl: string,
+    assetId: number,
 }
 
 export interface HistoryAsset extends Asset {
-    assetId: number,
     insertedAt: string
 }
 

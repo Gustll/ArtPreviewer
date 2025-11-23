@@ -1,17 +1,16 @@
-import AssetView from '@/views/AssetView.vue';
-import HistoryView from '@/views/HistoryView.vue';
+import MainView from '@/views/MainView.vue';
 import type { RouteRecordRaw } from 'vue-router';
 
 const routes: RouteRecordRaw[] = [
     {
         path: '/history',
         name: 'history',
-        component: HistoryView,
+        component: MainView,
     },
     {
         path: '/assets',
         name: 'assets',
-        component: AssetView,
+        component: MainView,
     },
     {
         path: '/:pathMatch(.*)*',

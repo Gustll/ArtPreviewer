@@ -32,7 +32,7 @@ const previewer = usePreviewerStore();
                         <AppSidebar />
                     </div>
                     <div
-                        class="container-bg shadow-m br4 pa3"
+                        class="container-bg shadow-m br4 pa3 relative"
                         :class="previewer.showFilter ? 'w-70' : 'w-100'">
                         <router-view /></div
                 ></template>

@@ -25,10 +25,8 @@ export const usePreviewerStore = defineStore('previewer', () => {
     const assets = ref<Asset[]>([]);
     const history = ref<HistoryAsset[]>([]);
 
-    const loading = reactive({
-        assets: false,
-        history: true
-    })
+
+    const loading = ref(false)
 
     const error = reactive({
         assets: false,
@@ -36,7 +34,7 @@ export const usePreviewerStore = defineStore('previewer', () => {
     })
 
     async function fetchAssets() {
-        loading.assets = true;
+        loading.value = true;
 
         try {
             assets.value = await assetService.listAssets(filter);
@@ -50,12 +48,12 @@ export const usePreviewerStore = defineStore('previewer', () => {
             }
             console.error('Failed to fetch assets:', e);
         } finally {
-            loading.assets = false;
+            loading.value = false;
         }
     }
 
     async function fetchHistory() {
-        loading.history = true;
+        loading.value = true;
 
         try {
             history.value = await assetService.listHistory(filter);
@@ -68,7 +66,7 @@ export const usePreviewerStore = defineStore('previewer', () => {
             }
             console.error('Failed to fetch downloads:', e);
         } finally {
-            loading.history = false;
+            loading.value = false;
         }
     }
 
@@ -76,6 +74,7 @@ export const usePreviewerStore = defineStore('previewer', () => {
         if (assetIds.length === 0) return;
 
         try {
+            console.log(assetIds)
             await assetService.downloadAssets(assetIds);
             console.log(`Downloaded ${assetIds.length} assets`);
         } catch (e) {

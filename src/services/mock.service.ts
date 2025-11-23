@@ -12,14 +12,16 @@ const mockAssets: Asset[] = [
         name: "Solider Walk",
         format: mockAssetFormats[0] as FormatResponse,
         gameTag: mockGameTags[0] as GameTagResponse,
-        thumbnailUrl: 'src/api/assets/thumbnails/soldier-walk.png'
+        thumbnailUrl: 'src/api/assets/thumbnails/soldier-walk.png',
+        assetId: 1
     },
     {
         id: 2,
         name: "Samurai",
         format: mockAssetFormats[0] as FormatResponse,
         gameTag: mockGameTags[1] as GameTagResponse,
-        thumbnailUrl: 'src/api/assets/thumbnails/samurai.png'
+        thumbnailUrl: 'src/api/assets/thumbnails/samurai.png',
+        assetId: 1
     }
 ];
 
