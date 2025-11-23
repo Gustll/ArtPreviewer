@@ -3,7 +3,7 @@ import type { Asset } from '@/types/asset';
 import IconCheck from '../icons/IconCheck.vue';
 import { ref } from 'vue';
 
-const emit = defineEmits(['downloadAsset']);
+const emit = defineEmits(['downloadAsset', 'toggleAsset']);
 
 interface Props {
     asset: Asset;
@@ -20,36 +20,42 @@ const props = withDefaults(defineProps<Props>(), {
 function downloadAsset() {
     emit('downloadAsset');
 }
+
+function toggleAsset() {
+    emit('toggleAsset');
+}
 </script>
 
 <template>
     <div
         class="asset-container container-bg-light shadow-m br4 flex flex-column h-auto"
         :class="{ active: props.active || isHovered }">
-        <div
-            class="flex flex-row justify-between pointer"
-            @mouseenter="isHovered = true"
-            @mouseleave="isHovered = false">
+        <div @click="toggleAsset()">
             <div
-                class="img-container overflow-hidden flex items-center justify-center">
-                <img
-                    :src="asset.thumbnailUrl"
-                    :alt="asset.name"
-                    class="w-auto h-auto db"
-                    loading="lazy" />
+                class="flex flex-row justify-between pointer"
+                @mouseenter="isHovered = true"
+                @mouseleave="isHovered = false">
+                <div
+                    class="img-container overflow-hidden flex items-center justify-center">
+                    <img
+                        :src="asset.thumbnailUrl"
+                        :alt="asset.name"
+                        class="w-auto h-auto db"
+                        loading="lazy" />
+                </div>
+                <div class="flex justify-end">
+                    <IconCheck :active="active" />
+                </div>
             </div>
-            <div class="flex justify-end">
-                <IconCheck :active="active" />
-            </div>
-        </div>
 
-        <div class="truncate flex flex-column">
-            <span class="ttu text-muted">{{ asset.format.type }}</span>
-            <span class="asset-name f4 fw8">{{ asset.name }}</span>
-        </div>
-        <div>
-            <div class="container-tag dib">
-                {{ asset.gameTag.game }}
+            <div class="truncate flex flex-column">
+                <span class="ttu text-muted">{{ asset.format.type }}</span>
+                <span class="asset-name f4 fw8">{{ asset.name }}</span>
+            </div>
+            <div>
+                <div class="container-tag dib">
+                    {{ asset.gameTag.game }}
+                </div>
             </div>
         </div>
         <div class="action-container flex flex-row">

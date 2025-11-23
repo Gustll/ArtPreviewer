@@ -47,20 +47,20 @@ async function downloadAsset(ids: number[]) {
         class="w-100 h-100 flex assets-container relative overflow-y-auto br4"
         :class="[
             previewer.gridDisplay ? 'flex-wrap' : 'flex-column',
-            deviceService.isMobile ? 'items-center' : '',
+            deviceService.isMobile ? 'justify-center' : '',
         ]">
         <IconLoader
             v-if="previewer.loading.history"
             class="absolute" />
-        <div
-            v-for="asset in previewer.history"
-            @click="toggleAsset(asset.id)">
+        <div v-for="asset in previewer.history">
             <GridAsset
+                @toggle-asset="toggleAsset(asset.id)"
                 @download-asset="downloadAsset([asset.assetId])"
                 :asset="asset"
                 :active="assetActive(asset.id)"
                 v-if="previewer.gridDisplay || deviceService.isMobile" />
             <ListAsset
+                @toggle-asset="toggleAsset(asset.id)"
                 @download-asset="downloadAsset([asset.assetId])"
                 :asset="asset"
                 :active="assetActive(asset.id)"
