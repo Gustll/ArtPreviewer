@@ -89,7 +89,7 @@ function toggleShowMore(assetId: number | null) {
         v-else
         class="w-100 h-100 flex assets-container relative overflow-y-auto br4"
         :class="[
-            previewer.gridDisplay ? 'flex-wrap' : 'flex-column',
+            previewer.gridDisplay ? 'flex-wrap content-start' : 'flex-column',
             deviceService.isMobile ? 'justify-center' : '',
         ]">
         <IconLoader v-if="previewer.loading" />
